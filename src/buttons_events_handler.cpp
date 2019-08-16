@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "definitions.h"
 
+// ----------------------------------------------------
+/* LEFT */
 void left_button_short_click_event(){
     left_output_short_click_state = false;
     Serial.println("SHORT PRESS - LEFT");
@@ -11,6 +13,17 @@ void left_button_short_click_event(){
     }
 }
 
+void left_button_long_click_event(){
+    Serial.println("LONG PRESS - LEFT");
+}
+// ----------------------------------------------------
+
+// ----------------------------------------------------
+/* P */
+void p_button_short_click_event(){
+    Serial.println("SHORT PRESS - P");
+}
+    
 void p_button_long_click_event(){
     p_output_long_click_state = false;
     Serial.println("LONG PRESS - P");
@@ -26,7 +39,10 @@ void p_button_long_click_event(){
         set_LCD_edit_controller();
     }
 }
+// ----------------------------------------------------
 
+// ----------------------------------------------------
+/* RIGHT */
 void right_button_short_click_event(){
     right_output_short_click_state = false;
     Serial.println("SHORT PRESS - RIGHT");
@@ -36,3 +52,8 @@ void right_button_short_click_event(){
         set_low_easter_egg();
     }
 }
+
+void right_button_long_click_event(){
+    Serial.println("LONG PRESS - RIGHT");
+}
+// ----------------------------------------------------

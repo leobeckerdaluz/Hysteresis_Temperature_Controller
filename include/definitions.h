@@ -5,6 +5,9 @@
 #define INTERVAL_LONG_CLICK 500
 #define INTERVAL_SHORT_CLICK 70
 
+#define PIN_HEART_BEATING 13
+#define DELAY_HEART_BEATING 500
+
 extern bool programming_mode;
 extern int low_easter_egg;
 extern int high_easter_egg;
@@ -37,5 +40,8 @@ extern void lcd_scroll_right();
 
 // Buttons events
 extern void left_button_short_click_event();
+extern void left_button_long_click_event();
+extern void p_button_short_click_event();
 extern void p_button_long_click_event();
 extern void right_button_short_click_event();
+extern void right_button_long_click_event();

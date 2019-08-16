@@ -1,30 +1,18 @@
 #include <Arduino.h>
 #include "definitions.h"
 
-void init_buttons(){
-	pinMode(BUTTON_LEFT_PIN, INPUT);
-	pinMode(BUTTON_P_PIN, INPUT);
-	pinMode(BUTTON_RIGHT_PIN, INPUT);
-}
-
-void read_button(){
-    // turn the LED on (HIGH is the voltage level)
-	digitalWrite(LED_BUILTIN, HIGH);
-	// wait for a second
-	delay(50);
-	// turn the LED off by making the voltage LOW
-	digitalWrite(LED_BUILTIN, LOW);
-	// wait for a second
-	delay(50);
-}
-
-
 bool left_output_long_click_state = false;
 bool left_output_short_click_state = false;
 bool right_output_long_click_state = false;
 bool right_output_short_click_state = false;
 bool p_output_long_click_state = false;
 bool p_output_short_click_state = false;
+
+void init_buttons(){
+	pinMode(BUTTON_LEFT_PIN, INPUT);
+	pinMode(BUTTON_P_PIN, INPUT);
+	pinMode(BUTTON_RIGHT_PIN, INPUT);
+}
 
 //
 //void read_button(int button_pin){

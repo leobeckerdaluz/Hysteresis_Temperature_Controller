@@ -7,7 +7,6 @@
 //Define os pinos que serão utilizados para ligação ao display
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-
 byte graus[] = {
     B00000,
     B01110,
@@ -41,7 +40,6 @@ byte up_arrow[] = {
     B00000
 };
 
-
 void init_lcd_display(){
     // turn the LED on (HIGH is the voltage level)
 	digitalWrite(LED_BUILTIN, HIGH);
@@ -59,7 +57,6 @@ void init_lcd_display(){
 	lcd.createChar(1, down_arrow);
 	lcd.createChar(2, graus);
 }
-
 
 void set_LCD_main_screen(){
     //Limpa a tela
@@ -156,7 +153,6 @@ void set_setpoint(){
     lcd.write((uint8_t)2);
     lcd.print("C");
 }
-
 
 void lcd_scroll_left(){
     for(int posi_LCD=0; posi_LCD<15; posi_LCD++){
