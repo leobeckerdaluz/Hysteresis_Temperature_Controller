@@ -1,6 +1,12 @@
 #include <Arduino.h>
 #include "definitions.h"
 
+void init_buttons(){
+	pinMode(BUTTON_LEFT_PIN, INPUT);
+	pinMode(BUTTON_P_PIN, INPUT);
+	pinMode(BUTTON_RIGHT_PIN, INPUT);
+}
+
 void read_button(){
     // turn the LED on (HIGH is the voltage level)
 	digitalWrite(LED_BUILTIN, HIGH);
