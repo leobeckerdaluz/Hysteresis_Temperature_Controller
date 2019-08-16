@@ -1,15 +1,6 @@
 #include <Arduino.h>
 #include "definitions.h"
 
-// bool update_lcd_now = false;
-// String state = "teste1";
-int low_easter_egg = 20;
-int high_easter_egg = 80;
-int setpoint = 60;
-int current_temp = 40;
-bool controller_status = false;
-bool programming_mode = false;
-
 void heart_beating(){
 	static unsigned long long int millis_heart_beating = 0;
 
@@ -21,8 +12,7 @@ void heart_beating(){
 
 void setup() 
 {
-	// initialize LED digital pin as an output.
-	pinMode(LED_BUILTIN, OUTPUT);
+	pinMode(PIN_HEART_BEATING, OUTPUT);
 
 	Serial.begin(9600);
 
@@ -41,28 +31,5 @@ void loop()
 	read_P_button();
 	read_right_button();
 
-	if(left_output_short_click_state){
-		left_output_short_click_state = false;
-		left_button_short_click_event();
-	}
-	else if(left_output_long_click_state){
-		left_output_long_click_state = false;
-		left_button_long_click_event();
-	}
-	else if(p_output_short_click_state){
-		p_output_short_click_state = false;
-		p_button_short_click_event();
-	}
-	else if(p_output_long_click_state){
-		p_output_long_click_state = false;
-		p_button_long_click_event();
-	}
-	else if(right_output_short_click_state){
-		right_output_short_click_state = false;
-		right_button_short_click_event();
-	}
-	else if(right_output_long_click_state){
-	   right_output_long_click_state = false;
-	   right_button_long_click_event();
-	}
+	update_controller();
 }

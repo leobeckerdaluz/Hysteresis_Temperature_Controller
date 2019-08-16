@@ -7,6 +7,9 @@
 //Define os pinos que serão utilizados para ligação ao display
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
+bool programming_mode = false;
+bool update_lcd = false;
+
 byte graus[] = {
     B00000,
     B01110,
@@ -80,7 +83,7 @@ void set_LCD_main_screen(){
     lcd.print("C");
 }
 
-void set_LCD_edit_controller(){
+void set_LCD_edit_controller(bool modo_selecionado){
     //Limpa a tela
     lcd.clear();
 
@@ -93,10 +96,27 @@ void set_LCD_edit_controller(){
     lcd.print("CONTROLLER");
     // Seta o status
     lcd.setCursor(7, 1);
-    lcd.print("ON");
+
+    if(controller_general_status){
+        if(modo_selecionado){
+            lcd.print("NEG_ON");
+        }
+        else{
+            lcd.print("ON");
+        }
+    }
+    else
+    {
+        if(modo_selecionado){
+            lcd.print("NEG_OFF");
+        }
+        else{
+            lcd.print("OFF");
+        }
+    }
 }
 
-void set_low_easter_egg(){
+void set_low_easter_egg(bool modo_selecionado){
     //Limpa a tela
     lcd.clear();
 
@@ -116,7 +136,7 @@ void set_low_easter_egg(){
     lcd.print("C");
 }
 
-void set_high_easter_egg(){
+void set_high_easter_egg(bool modo_selecionado){
     //Limpa a tela
     lcd.clear();
 
@@ -136,7 +156,7 @@ void set_high_easter_egg(){
     lcd.print("C");
 }
 
-void set_setpoint(){
+void set_setpoint(bool modo_selecionado){
     //Limpa a tela
     lcd.clear();
 

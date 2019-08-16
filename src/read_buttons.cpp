@@ -90,44 +90,15 @@ void read_left_button(){
 
 	if ((left_lastBtnReleaseMillis-left_lastBtnPressMillis >= INTERVAL_LONG_CLICK) && left_button_waiting && !left_button_pressed) {
 		left_button_waiting = false;
-		left_output_long_click_state = !left_output_long_click_state;
-		// Serial.println("Long Press - LEFT");
+		// left_output_long_click_state = !left_output_long_click_state;
+		Serial.println("Long Press - LEFT");
+		left_button_long_click_event();
 	}
 	else if ((left_lastBtnReleaseMillis-left_lastBtnPressMillis >= INTERVAL_SHORT_CLICK) && left_button_waiting && !left_button_pressed) {
 		left_button_waiting = false;
-		left_output_short_click_state = !left_output_short_click_state;
-		// Serial.println("Short Press - LEFT");
-	}
-}
-
-void read_right_button(){
-	static unsigned long long int right_lastBtnPressMillis = 0;
-	static unsigned long long int right_lastBtnReleaseMillis = 0;
-	static bool right_button_waiting = false;
-	static bool right_button_pressed = false;
-
-	bool button_digital_value = digitalRead(BUTTON_RIGHT_PIN);
-	button_digital_value = !button_digital_value;
-
-	if (button_digital_value && !right_button_pressed) {
-		right_button_pressed = true;
-		right_button_waiting = true;
-		right_lastBtnPressMillis = millis();
-	}
-	else if (!button_digital_value && right_button_pressed) {
-		right_button_pressed = false;
-		right_lastBtnReleaseMillis = millis();
-	}
-
-	if ((right_lastBtnReleaseMillis-right_lastBtnPressMillis >= INTERVAL_LONG_CLICK) && right_button_waiting && !right_button_pressed) {
-		right_button_waiting = false;
-		right_output_long_click_state = !right_output_long_click_state;
-		// Serial.println("Long Press - RIGHT");
-	}
-	else if ((right_lastBtnReleaseMillis-right_lastBtnPressMillis >= INTERVAL_SHORT_CLICK) && right_button_waiting && !right_button_pressed) {
-		right_button_waiting = false;
-		right_output_short_click_state = !right_output_short_click_state;
-		// Serial.println("Short Press - RIGHT");
+		// left_output_short_click_state = !left_output_short_click_state;
+		Serial.println("Short Press - LEFT");
+		left_button_short_click_event();
 	}
 }
 
@@ -152,12 +123,48 @@ void read_P_button(){
 
 	if ((p_lastBtnReleaseMillis-p_lastBtnPressMillis >= INTERVAL_LONG_CLICK) && p_button_waiting && !p_button_pressed) {
 		p_button_waiting = false;
-		p_output_long_click_state = !p_output_long_click_state;
-		// Serial.println("Long Press - P");
+		// p_output_long_click_state = !p_output_long_click_state;
+		Serial.println("Long Press - P");
+		p_button_long_click_event();
 	}
 	else if ((p_lastBtnReleaseMillis-p_lastBtnPressMillis >= INTERVAL_SHORT_CLICK) && p_button_waiting && !p_button_pressed) {
 		p_button_waiting = false;
-		p_output_short_click_state = !p_output_short_click_state;
-		// Serial.println("Short Press - P");
+		// p_output_short_click_state = !p_output_short_click_state;
+		Serial.println("Short Press - P");
+		p_button_short_click_event();
 	}
 }
+
+void read_right_button(){
+	static unsigned long long int right_lastBtnPressMillis = 0;
+	static unsigned long long int right_lastBtnReleaseMillis = 0;
+	static bool right_button_waiting = false;
+	static bool right_button_pressed = false;
+
+	bool button_digital_value = digitalRead(BUTTON_RIGHT_PIN);
+	button_digital_value = !button_digital_value;
+
+	if (button_digital_value && !right_button_pressed) {
+		right_button_pressed = true;
+		right_button_waiting = true;
+		right_lastBtnPressMillis = millis();
+	}
+	else if (!button_digital_value && right_button_pressed) {
+		right_button_pressed = false;
+		right_lastBtnReleaseMillis = millis();
+	}
+
+	if ((right_lastBtnReleaseMillis-right_lastBtnPressMillis >= INTERVAL_LONG_CLICK) && right_button_waiting && !right_button_pressed) {
+		right_button_waiting = false;
+		// right_output_long_click_state = !right_output_long_click_state;
+		Serial.println("Long Press - RIGHT");
+		right_button_long_click_event();
+	}
+	else if ((right_lastBtnReleaseMillis-right_lastBtnPressMillis >= INTERVAL_SHORT_CLICK) && right_button_waiting && !right_button_pressed) {
+		right_button_waiting = false;
+		right_output_short_click_state = !right_output_short_click_state;
+		Serial.println("Short Press - RIGHT");
+		right_button_short_click_event();
+	}
+}
+
