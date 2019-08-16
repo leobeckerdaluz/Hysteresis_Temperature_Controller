@@ -8,7 +8,7 @@ void left_button_short_click_event(){
 
     if (programming_mode){
         lcd_scroll_left();
-        set_LCD_edit_controller();
+        set_LCD_edit_controller(false);
     }
 }
 
@@ -34,7 +34,7 @@ void p_button_long_click_event(){
     else{
         programming_mode = true;
         Serial.println("Programming Mode Ativado!");
-        set_LCD_edit_controller();
+        set_LCD_edit_controller(false);
     }
 }
 // ----------------------------------------------------
@@ -46,7 +46,7 @@ void right_button_short_click_event(){
 
     if (programming_mode){
         lcd_scroll_right();
-        set_low_easter_egg();
+        set_low_easter_egg(false);
     }
 }
 
