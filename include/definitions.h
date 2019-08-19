@@ -10,18 +10,31 @@
 #define INTERVAL_LONG_CLICK 500
 #define INTERVAL_SHORT_CLICK 70
 
-/* CONTROLLER HYSTERESIS */
+/* CONTROLLER */
 #define PERCENTAGE_EASTER_EGG 10
+#define INITIAL_OR_NO_EEPROM_SETPOINT 20
+#define INITIAL_OR_NO_EEPROM_CONTROLLER_GENERAL_STATE false
+
+#define INTERVAL_SETPOINT_INC_DEC 0.5
+#define INTERVAL_PERCENTAGE_INC_DEC 5
+#define MAX_SETPOINT 50
+#define MIN_SETPOINT 10
+
+#define UPDATE_VALUE_TO_UP 1
+#define UPDATE_VALUE_TO_DOWN 0
 
 /* External Variables */
 extern bool programming_mode;
-extern int low_easter_egg;
-extern int high_easter_egg;
-extern int setpoint;
+extern bool editing;
+extern float low_easter_egg;
+extern float high_easter_egg;
+extern float setpoint;
+extern float percentage_easter_egg;
 extern float current_temp;
 extern int display_temperature;
 extern bool controller_status;
 extern bool controller_general_status;
+extern int current_page;
 
 // Buttons handler
 extern void init_buttons();
@@ -30,12 +43,12 @@ extern void read_P_button();
 extern void read_right_button();
 
 // LCD Handler
+extern void update_current_screen();
 extern void init_lcd_display();
 extern void set_LCD_main_screen();
-extern void set_LCD_edit_controller(bool modo_selecionado);
-extern void set_low_easter_egg(bool modo_selecionado);
-extern void set_high_easter_egg(bool modo_selecionado);
-extern void set_setpoint(bool modo_selecionado);
+extern void set_LCD_edit_controller();
+extern void set_percentage_easter_egg();
+extern void set_setpoint();
 extern void lcd_scroll_left();
 extern void lcd_scroll_right();
 
@@ -50,6 +63,14 @@ extern void right_button_long_click_event();
 // Controller
 extern void init_controller();
 extern void update_controller();
+extern void update_value(bool update_to_up_or_down);
+
 
 // LM35 handler
 extern void get_LM35_temperature();
+
+/* Screens */
+#define NUMBER_OF_SCREENS 3
+#define SET_CONTROLLER_PAGE_ID 0
+#define SET_PERCENTAGE_PAGE_ID 1
+#define SET_SETPOINT_PAGE_ID 2

@@ -21,7 +21,13 @@ void setup()
 
 	// Inicializa a tela principal
 	set_LCD_main_screen();
+
+	// Inicializa os dados do controlador
+	init_controller();
 }
+
+
+
 
 void loop()
 {	

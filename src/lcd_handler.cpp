@@ -7,8 +7,16 @@
 //Define os pinos que serão utilizados para ligação ao display
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-bool programming_mode = false;
-bool update_lcd = false;
+void init_lcd_display();
+void set_LCD_main_screen();
+void set_LCD_edit_controller();
+void set_low_easter_egg();
+void set_high_easter_egg();
+void set_percentage_easter_egg();
+void set_setpoint();
+void lcd_scroll_left();
+void lcd_scroll_right();
+
 
 byte graus[] = {
     B00000,
@@ -43,16 +51,26 @@ byte up_arrow[] = {
     B00000
 };
 
-void init_lcd_display(){
-    // turn the LED on (HIGH is the voltage level)
-	digitalWrite(LED_BUILTIN, HIGH);
-	// wait for a second
-	delay(500);
-	// turn the LED off by making the voltage LOW
-	digitalWrite(LED_BUILTIN, LOW);
-	// wait for a second
-	delay(500);
+// typedef void (*f)();
+// f func[NUMBER_OF_SCREENS] = {&set_LCD_edit_controller, &set_percentage_easter_egg, &set_setpoint};
 
+void update_current_screen(){
+    switch (current_page) {
+        case SET_CONTROLLER_PAGE_ID:
+            set_LCD_edit_controller();
+            break;
+        case SET_PERCENTAGE_PAGE_ID:
+            set_percentage_easter_egg();
+            break;
+        case SET_SETPOINT_PAGE_ID:
+            set_setpoint();
+            break;
+        default:
+            break;
+    }
+}
+
+void init_lcd_display(){
     //Define o número de colunas e linhas do LCD
 	lcd.begin(16, 2);
 
@@ -62,6 +80,8 @@ void init_lcd_display(){
 }
 
 void set_LCD_main_screen(){
+    Serial.println("Abrindo tela principal!");
+
     //Limpa a tela
     lcd.clear();
 
@@ -75,15 +95,20 @@ void set_LCD_main_screen(){
     lcd.print("80");
     // Seta o setpoint
     lcd.setCursor(5, 0);
-    lcd.print("SETPOINT:20");
+    lcd.print("SETPOINT:");
+    lcd.print("20");
     // Seta a temperatura atual
     lcd.setCursor(9, 1);
-    lcd.print("TEMP:21");
+    lcd.print("TEMP:");
+    lcd.print("21");
     lcd.write((uint8_t)2);
     lcd.print("C");
 }
 
-void set_LCD_edit_controller(bool modo_selecionado){
+void set_LCD_edit_controller(){
+    Serial.println("-------------------------------------");
+    Serial.println("Abrindo tela de edição de estado do controle!");
+
     //Limpa a tela
     lcd.clear();
 
@@ -94,49 +119,41 @@ void set_LCD_edit_controller(bool modo_selecionado){
     // Seta o controller
     lcd.setCursor(3, 0);
     lcd.print("CONTROLLER");
-    // Seta o status
-    lcd.setCursor(7, 1);
-
+    
     if(controller_general_status){
-        if(modo_selecionado){
+        // Seta o status
+        lcd.setCursor(7, 1);
+
+        if(editing){
             lcd.print("NEG_ON");
+            Serial.println("Controlador ON em edição (char negativo)!");
         }
         else{
             lcd.print("ON");
+            Serial.println("Controlador ON em modo de programação. Não editando!");
         }
     }
     else
     {
-        if(modo_selecionado){
+        // Seta o status
+        lcd.setCursor(6, 1);
+
+        if(editing){
             lcd.print("NEG_OFF");
+            Serial.println("Controlador OFF em edição (char negativo)!");
         }
         else{
             lcd.print("OFF");
+            Serial.println("Controlador OFF em modo de programação. Não editando!");
         }
     }
+    Serial.println("-------------------------------------");
 }
 
-void set_low_easter_egg(bool modo_selecionado){
-    //Limpa a tela
-    lcd.clear();
+void set_percentage_easter_egg(){
+    Serial.println("-------------------------------------");
+    Serial.println("Abrindo tela de edição de porcentagem de easter egg!");
 
-    // Seta a seta da direita e a da esquerda
-    lcd.setCursor(0, 0);
-    lcd.print("<");
-    lcd.setCursor(15, 0);
-    lcd.print(">");
-
-    // Seta o low
-    lcd.setCursor(4, 0);
-    lcd.print("LOW HIST");
-    // Seta o status
-    lcd.setCursor(6, 1);
-    lcd.print("20");
-    lcd.write((uint8_t)2);
-    lcd.print("C");
-}
-
-void set_high_easter_egg(bool modo_selecionado){
     //Limpa a tela
     lcd.clear();
 
@@ -147,16 +164,28 @@ void set_high_easter_egg(bool modo_selecionado){
     lcd.print(">");
 
     // Seta o high
-    lcd.setCursor(4, 0);
-    lcd.print("HIGH HIST");
+    lcd.setCursor(2, 0);
+    lcd.print("% HYSTERESIS");
+    // Seta o status
+
     // Seta o status
     lcd.setCursor(6, 1);
-    lcd.print("80");
-    lcd.write((uint8_t)2);
-    lcd.print("C");
+    Serial.println(percentage_easter_egg);
+
+    if(editing){
+        lcd.print("10 NEG");
+    }
+    else{
+        lcd.print("10");
+    }
+
+    Serial.println("-------------------------------------");
 }
 
-void set_setpoint(bool modo_selecionado){
+void set_setpoint(){
+    Serial.println("-------------------------------------");
+    Serial.println("Abrindo tela de edição de setpoint!");
+
     //Limpa a tela
     lcd.clear();
 
@@ -168,10 +197,21 @@ void set_setpoint(bool modo_selecionado){
     lcd.setCursor(4, 0);
     lcd.print("SETPOINT");
     // Seta o status
-    lcd.setCursor(6, 1);
-    lcd.print("60");
+    lcd.setCursor(5, 1);
+    Serial.println(setpoint);
+
+    if(editing){
+        lcd.print("20.5 NEG");
+    }
+    else{
+        lcd.print("20.5");
+    }
+
+    lcd.print(" ");
     lcd.write((uint8_t)2);
     lcd.print("C");
+
+    Serial.println("-------------------------------------");
 }
 
 void lcd_scroll_left(){
