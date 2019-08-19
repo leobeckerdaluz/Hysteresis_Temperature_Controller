@@ -85,22 +85,28 @@ void set_LCD_main_screen(){
     //Limpa a tela
     lcd.clear();
 
+    // Seta a barra de status
+    lcd.setCursor(1, 0);
+    lcd.print("-");
+    lcd.setCursor(1, 1);
+    lcd.print("-");
+
     // Seta o low
-    lcd.setCursor(0, 0);
+    lcd.setCursor(1, 0);
     lcd.write((uint8_t)0);
-    lcd.print("20");
+    lcd.print("17.5");
     // Seta o high
-    lcd.setCursor(0, 1);
+    lcd.setCursor(1, 1);
     lcd.write((uint8_t)1);
-    lcd.print("80");
+    lcd.print("22.5");
     // Seta o setpoint
-    lcd.setCursor(5, 0);
-    lcd.print("SETPOINT:");
-    lcd.print("20");
+    lcd.setCursor(10, 0);
+    lcd.print("SETP:");
+    lcd.print("20.0");
     // Seta a temperatura atual
-    lcd.setCursor(9, 1);
+    lcd.setCursor(10, 1);
     lcd.print("TEMP:");
-    lcd.print("21");
+    lcd.print("21.5");
     lcd.write((uint8_t)2);
     lcd.print("C");
 }

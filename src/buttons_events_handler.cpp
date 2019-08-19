@@ -1,8 +1,6 @@
 #include <Arduino.h>
 #include "definitions.h"
 
-
-
 bool editing = false;
 bool programming_mode = false;
 int current_page = 0;
