@@ -1,12 +1,15 @@
 #include <Arduino.h>
 #include "definitions.h"
+#include <Wire.h> //INCLUSÃO DE BIBLIOTECA
+#include <LiquidCrystal_I2C.h> //INCLUSÃO DE BIBLIOTECA
 
-//Carrega a biblioteca LiquidCrystal
-#include <LiquidCrystal.h>
+// //Carrega a biblioteca LiquidCrystal
+// #include <LiquidCrystal.h>
+// //Define os pinos que serão utilizados para ligação ao display
+// LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-//Define os pinos que serão utilizados para ligação ao display
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-
+LiquidCrystal_I2C lcd(0x3F,2,1,0,4,5,6,7,3, POSITIVE); //ENDEREÇO DO I2C E DEMAIS INFORMAÇÕES
+ 
 void init_lcd_display();
 void set_LCD_main_screen();
 void set_LCD_edit_controller();
@@ -74,6 +77,8 @@ void init_lcd_display(){
     //Define o número de colunas e linhas do LCD
 	lcd.begin(16, 2);
 
+    lcd.setBacklight(HIGH); //LIGA O BACKLIGHT (LUZ DE FUNDO)
+
 	lcd.createChar(0, up_arrow);
 	lcd.createChar(1, down_arrow);
 	lcd.createChar(2, graus);
@@ -100,12 +105,12 @@ void set_LCD_main_screen(){
     lcd.write((uint8_t)1);
     lcd.print("22.5");
     // Seta o setpoint
-    lcd.setCursor(10, 0);
-    lcd.print("SETP:");
+    lcd.setCursor(9, 0);
+    lcd.print("SP:");
     lcd.print("20.0");
     // Seta a temperatura atual
-    lcd.setCursor(10, 1);
-    lcd.print("TEMP:");
+    lcd.setCursor(9, 1);
+    lcd.print("TM':");
     lcd.print("21.5");
     lcd.write((uint8_t)2);
     lcd.print("C");
@@ -118,7 +123,9 @@ void set_LCD_edit_controller(){
     //Limpa a tela
     lcd.clear();
 
-    // Seta a seta da direita
+    // Seta a seta da direita e a da esquerda
+    lcd.setCursor(0, 0);
+    lcd.print("<");
     lcd.setCursor(15, 0);
     lcd.print(">");
 
@@ -126,33 +133,25 @@ void set_LCD_edit_controller(){
     lcd.setCursor(3, 0);
     lcd.print("CONTROLLER");
     
-    if(controller_general_status){
-        // Seta o status
-        lcd.setCursor(7, 1);
-
-        if(editing){
-            lcd.print("NEG_ON");
-            Serial.println("Controlador ON em edição (char negativo)!");
-        }
-        else{
-            lcd.print("ON");
-            Serial.println("Controlador ON em modo de programação. Não editando!");
-        }
+    // Converte o valor para uma string
+    char string_controller_value[10];
+    if (controller_general_status)  strcpy(string_controller_value, "ON");
+    else    strcpy(string_controller_value, "OFF");
+    // Mostra na tela o valor
+    lcd.setCursor(6, 1);
+    lcd.print(string_controller_value);
+        
+    if(editing){
+        lcd.setCursor(0, 0);
+        lcd.print(" ");
+        lcd.setCursor(15, 0);
+        lcd.print(" ");
+        lcd.setCursor(0, 1);
+        lcd.print("<<<");
+        lcd.setCursor(12, 1);
+        lcd.print(">>>");
     }
-    else
-    {
-        // Seta o status
-        lcd.setCursor(6, 1);
 
-        if(editing){
-            lcd.print("NEG_OFF");
-            Serial.println("Controlador OFF em edição (char negativo)!");
-        }
-        else{
-            lcd.print("OFF");
-            Serial.println("Controlador OFF em modo de programação. Não editando!");
-        }
-    }
     Serial.println("-------------------------------------");
 }
 
@@ -172,17 +171,27 @@ void set_percentage_easter_egg(){
     // Seta o high
     lcd.setCursor(2, 0);
     lcd.print("% HYSTERESIS");
-    // Seta o status
 
     // Seta o status
-    lcd.setCursor(6, 1);
     Serial.println(percentage_easter_egg);
+    lcd.setCursor(6, 1);
 
+    // Converte o valor para uma string
+    char string_percentage_value[10];
+  	dtostrf(percentage_easter_egg,1,0,string_percentage_value);
+    // Mostra na tela o valor
+    lcd.print(string_percentage_value);
+    lcd.print(" %");
+        
     if(editing){
-        lcd.print("10 NEG");
-    }
-    else{
-        lcd.print("10");
+        lcd.setCursor(0, 0);
+        lcd.print(" ");
+        lcd.setCursor(15, 0);
+        lcd.print(" ");
+        lcd.setCursor(0, 1);
+        lcd.print("<<<");
+        lcd.setCursor(12, 1);
+        lcd.print(">>>");
     }
 
     Serial.println("-------------------------------------");
@@ -195,27 +204,43 @@ void set_setpoint(){
     //Limpa a tela
     lcd.clear();
 
-    // Seta a seta da esquerda
+    // Seta a seta da direita e a da esquerda
     lcd.setCursor(0, 0);
     lcd.print("<");
+    lcd.setCursor(15, 0);
+    lcd.print(">");
 
     // Seta o setpoint
     lcd.setCursor(4, 0);
     lcd.print("SETPOINT");
+
     // Seta o status
     lcd.setCursor(5, 1);
     Serial.println(setpoint);
 
-    if(editing){
-        lcd.print("20.5 NEG");
-    }
-    else{
-        lcd.print("20.5");
-    }
+    // Seta o status
+    Serial.println(percentage_easter_egg);
+    lcd.setCursor(6, 1);
 
+    // Converte o valor para uma string
+    char string_setpoint_value[10];
+  	dtostrf(setpoint,1,1,string_setpoint_value);
+    // Mostra na tela o valor
+    lcd.print(string_setpoint_value);
     lcd.print(" ");
     lcd.write((uint8_t)2);
     lcd.print("C");
+        
+    if(editing){
+        lcd.setCursor(0, 0);
+        lcd.print(" ");
+        lcd.setCursor(15, 0);
+        lcd.print(" ");
+        lcd.setCursor(0, 1);
+        lcd.print("<<<");
+        lcd.setCursor(12, 1);
+        lcd.print(">>>");
+    }
 
     Serial.println("-------------------------------------");
 }

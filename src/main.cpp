@@ -27,8 +27,6 @@ void setup()
 }
 
 
-
-
 void loop()
 {	
 	heart_beating();
