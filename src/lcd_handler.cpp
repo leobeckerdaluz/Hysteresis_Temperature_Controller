@@ -54,9 +54,6 @@ byte up_arrow[] = {
     B00000
 };
 
-// typedef void (*f)();
-// f func[NUMBER_OF_SCREENS] = {&set_LCD_edit_controller, &set_percentage_easter_egg, &set_setpoint};
-
 void update_current_screen(){
     switch (current_page) {
         case SET_CONTROLLER_PAGE_ID:
@@ -96,22 +93,35 @@ void set_LCD_main_screen(){
     lcd.setCursor(1, 1);
     lcd.print("-");
 
+    // Converte o valor para uma string
+    char string_low_easter_egg_value[10];
+  	dtostrf(low_easter_egg,1,1,string_low_easter_egg_value);
+    char string_high_easter_egg_value[10];
+  	dtostrf(high_easter_egg,1,1,string_high_easter_egg_value);
+    char string_setpoint_value[10];
+  	dtostrf(setpoint,1,1,string_setpoint_value);
+    char string_temperature_value[10];
+  	dtostrf(current_temp,1,1,string_temperature_value);
+    // Mostra na tela o valor
+    
     // Seta o low
     lcd.setCursor(1, 0);
     lcd.write((uint8_t)0);
-    lcd.print("17.5");
+    lcd.print(string_low_easter_egg_value);
     // Seta o high
     lcd.setCursor(1, 1);
     lcd.write((uint8_t)1);
-    lcd.print("22.5");
+    lcd.print(string_high_easter_egg_value);
     // Seta o setpoint
-    lcd.setCursor(9, 0);
-    lcd.print("SP:");
-    lcd.print("20.0");
+    lcd.setCursor(10, 0);
+    lcd.print("S:");
+    lcd.print(string_setpoint_value);
+    lcd.write((uint8_t)2);
+    lcd.print("C");
     // Seta a temperatura atual
-    lcd.setCursor(9, 1);
-    lcd.print("TM':");
-    lcd.print("21.5");
+    lcd.setCursor(10, 1);
+    lcd.print("T:");
+    lcd.print(string_temperature_value);
     lcd.write((uint8_t)2);
     lcd.print("C");
 }
@@ -148,7 +158,7 @@ void set_LCD_edit_controller(){
         lcd.print(" ");
         lcd.setCursor(0, 1);
         lcd.print("<<<");
-        lcd.setCursor(12, 1);
+        lcd.setCursor(13, 1);
         lcd.print(">>>");
     }
 
@@ -190,7 +200,7 @@ void set_percentage_easter_egg(){
         lcd.print(" ");
         lcd.setCursor(0, 1);
         lcd.print("<<<");
-        lcd.setCursor(12, 1);
+        lcd.setCursor(13, 1);
         lcd.print(">>>");
     }
 
@@ -219,15 +229,14 @@ void set_setpoint(){
     Serial.println(setpoint);
 
     // Seta o status
-    Serial.println(percentage_easter_egg);
-    lcd.setCursor(6, 1);
+    Serial.println(setpoint);
+    lcd.setCursor(5, 1);
 
     // Converte o valor para uma string
     char string_setpoint_value[10];
   	dtostrf(setpoint,1,1,string_setpoint_value);
     // Mostra na tela o valor
     lcd.print(string_setpoint_value);
-    lcd.print(" ");
     lcd.write((uint8_t)2);
     lcd.print("C");
         
@@ -238,7 +247,7 @@ void set_setpoint(){
         lcd.print(" ");
         lcd.setCursor(0, 1);
         lcd.print("<<<");
-        lcd.setCursor(12, 1);
+        lcd.setCursor(13, 1);
         lcd.print(">>>");
     }
 

@@ -49,8 +49,13 @@ void update_value(bool update_to_up_or_down){
 }
 
 void update_hysteresis(){
-    high_easter_egg = setpoint*(1+(percentage_easter_egg/100.0));
-    low_easter_egg = setpoint*(1-(percentage_easter_egg/100.0));
+    float real_hysteresis_difference = setpoint*(percentage_easter_egg/100.0);
+
+    if (real_hysteresis_difference < MINIMUM_HYSTERESIS_TEMPERATURE)
+        real_hysteresis_difference = MINIMUM_HYSTERESIS_TEMPERATURE;
+
+    high_easter_egg = setpoint+real_hysteresis_difference;
+    low_easter_egg = setpoint-real_hysteresis_difference;
 }
 
 void update_controller() {

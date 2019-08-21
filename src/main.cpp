@@ -18,6 +18,7 @@ void setup()
 
 	init_lcd_display();
 	init_buttons(); 
+	init_controller();
 
 	// Inicializa a tela principal
 	set_LCD_main_screen();
