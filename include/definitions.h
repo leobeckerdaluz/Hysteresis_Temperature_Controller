@@ -4,6 +4,7 @@
 #define BUTTON_RIGHT_PIN 7
 #define LM35_PIN A0
 #define PIN_HEART_BEATING 13
+#define CONTROLLER_STATUS_PIN 4
 
 /* DELAYS & INTERVALS*/
 #define DELAY_HEART_BEATING 500
@@ -46,6 +47,8 @@ extern void read_right_button();
 // LCD Handler
 extern void update_current_screen();
 extern void init_lcd_display();
+extern void update_screen_temperature();
+extern void update_screen_controller_status();
 extern void set_LCD_main_screen();
 extern void set_LCD_edit_controller();
 extern void set_percentage_easter_egg();
@@ -71,7 +74,8 @@ extern void update_value(bool update_to_up_or_down);
 extern void get_LM35_temperature();
 
 /* Screens */
-#define NUMBER_OF_SCREENS 3
-#define SET_CONTROLLER_PAGE_ID 0
-#define SET_PERCENTAGE_PAGE_ID 1
-#define SET_SETPOINT_PAGE_ID 2
+#define NUMBER_OF_SCREENS 4
+#define MAIN_PAGE_ID 0
+#define SET_CONTROLLER_PAGE_ID 1
+#define SET_PERCENTAGE_PAGE_ID 2
+#define SET_SETPOINT_PAGE_ID 3

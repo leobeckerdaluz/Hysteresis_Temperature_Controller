@@ -3,7 +3,7 @@
 
 bool editing = false;
 bool programming_mode = false;
-int current_page = 0;
+
 
 // ----------------------------------------------------
 /* LEFT */
@@ -16,7 +16,7 @@ void left_button_short_click_event(){
         else{
             // Navega para a tela da esquerda
             Serial.println("Navegando para a tela da esquerda!");
-            if (current_page==0)    current_page = NUMBER_OF_SCREENS-1;
+            if (current_page==1)    current_page = NUMBER_OF_SCREENS-1;
             else    current_page--;
             lcd_scroll_left();
             update_current_screen();
@@ -50,12 +50,17 @@ void p_button_long_click_event(){
     if (programming_mode){
         programming_mode = false;
         Serial.println("Programming Mode desativado!");
-        set_LCD_main_screen();
+        // set_LCD_main_screen();
+        current_page = MAIN_PAGE_ID;
+        update_current_screen();
     }
     else{
         programming_mode = true;
         Serial.println("Programming Mode Ativado!");
-        set_LCD_edit_controller();
+        // set_LCD_edit_controller();
+        
+        current_page = SET_CONTROLLER_PAGE_ID;
+        update_current_screen();
     }
 }
 // ----------------------------------------------------
@@ -71,11 +76,10 @@ void right_button_short_click_event(){
         else{
             // Navega para a tela da direita
             Serial.println("Navegando para a tela da direita!");
-            if (current_page==NUMBER_OF_SCREENS-1)    current_page = 0;
+            if (current_page==NUMBER_OF_SCREENS-1)    current_page = 1;
             else    current_page++;
             lcd_scroll_right();
             update_current_screen();
-            // func[current_page]();
         }
     }
 }

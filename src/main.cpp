@@ -13,6 +13,7 @@ void heart_beating(){
 void setup() 
 {
 	pinMode(PIN_HEART_BEATING, OUTPUT);
+	pinMode(CONTROLLER_STATUS_PIN, OUTPUT);
 
 	Serial.begin(9600);
 
@@ -21,7 +22,7 @@ void setup()
 	init_controller();
 
 	// Inicializa a tela principal
-	set_LCD_main_screen();
+	update_current_screen();
 
 	// Inicializa os dados do controlador
 	init_controller();

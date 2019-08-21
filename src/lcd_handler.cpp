@@ -9,6 +9,7 @@
 // LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 LiquidCrystal_I2C lcd(0x3F,2,1,0,4,5,6,7,3, POSITIVE); //ENDEREÇO DO I2C E DEMAIS INFORMAÇÕES
+int current_page = 0;
  
 void init_lcd_display();
 void set_LCD_main_screen();
@@ -54,8 +55,24 @@ byte up_arrow[] = {
     B00000
 };
 
+byte left_arrow[] = {
+    B00000,
+    B00010,
+    B00110,
+    B01110,
+    B11110,
+    B01110,
+    B00110,
+    B00010
+};
+
 void update_current_screen(){
     switch (current_page) {
+        case MAIN_PAGE_ID:
+            set_LCD_main_screen();
+            update_screen_controller_status();
+            update_screen_temperature();
+            break;
         case SET_CONTROLLER_PAGE_ID:
             set_LCD_edit_controller();
             break;
@@ -79,6 +96,40 @@ void init_lcd_display(){
 	lcd.createChar(0, up_arrow);
 	lcd.createChar(1, down_arrow);
 	lcd.createChar(2, graus);
+	lcd.createChar(3, left_arrow);
+}
+
+void update_screen_temperature(){
+    Serial.println("Atualizando temperatura no display!");
+
+    // Converte o valor para uma string
+    char temp[10];
+    char string_temperature_value[10];
+  	dtostrf(current_temp,1,1,temp);
+    if(current_temp<10)     sprintf(string_temperature_value, "0%s", temp);
+    else    sprintf(string_temperature_value, "%s", temp);
+   
+    // Seta a temperatura atual
+    lcd.setCursor(10, 1);
+    lcd.print("T:");
+    lcd.print(string_temperature_value);
+}
+
+void update_screen_controller_status(){
+    Serial.println("Atualizando status do controle no display!");
+
+    if (controller_status){
+        lcd.setCursor(1, 0);
+        lcd.write((uint8_t)3);
+        lcd.setCursor(1, 1);
+        lcd.print(" ");
+    }
+    else{
+        lcd.setCursor(1, 0);
+        lcd.print(" ");
+        lcd.setCursor(1, 1);
+        lcd.write((uint8_t)3);
+    }
 }
 
 void set_LCD_main_screen(){
@@ -88,10 +139,10 @@ void set_LCD_main_screen(){
     lcd.clear();
 
     // Seta a barra de status
-    lcd.setCursor(1, 0);
-    lcd.print("-");
-    lcd.setCursor(1, 1);
-    lcd.print("-");
+    lcd.setCursor(0, 0);
+    lcd.print("1");
+    lcd.setCursor(0, 1);
+    lcd.print("0");
 
     // Converte o valor para uma string
     char string_low_easter_egg_value[10];
@@ -100,30 +151,19 @@ void set_LCD_main_screen(){
   	dtostrf(high_easter_egg,1,1,string_high_easter_egg_value);
     char string_setpoint_value[10];
   	dtostrf(setpoint,1,1,string_setpoint_value);
-    char string_temperature_value[10];
-  	dtostrf(current_temp,1,1,string_temperature_value);
-    // Mostra na tela o valor
     
     // Seta o low
-    lcd.setCursor(1, 0);
+    lcd.setCursor(3, 0);
     lcd.write((uint8_t)0);
     lcd.print(string_low_easter_egg_value);
     // Seta o high
-    lcd.setCursor(1, 1);
+    lcd.setCursor(3, 1);
     lcd.write((uint8_t)1);
     lcd.print(string_high_easter_egg_value);
     // Seta o setpoint
     lcd.setCursor(10, 0);
     lcd.print("S:");
     lcd.print(string_setpoint_value);
-    lcd.write((uint8_t)2);
-    lcd.print("C");
-    // Seta a temperatura atual
-    lcd.setCursor(10, 1);
-    lcd.print("T:");
-    lcd.print(string_temperature_value);
-    lcd.write((uint8_t)2);
-    lcd.print("C");
 }
 
 void set_LCD_edit_controller(){
