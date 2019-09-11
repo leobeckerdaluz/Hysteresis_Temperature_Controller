@@ -6,8 +6,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "/home/bull/git/Hysteresis_Temperature_Controller/include",
-                "/home/bull/git/Hysteresis_Temperature_Controller/src",
+                "/home/bull/git/Hysteresis_Temperature_Controller/SourceCode/include",
+                "/home/bull/git/Hysteresis_Temperature_Controller/SourceCode/src",
                 "/home/bull/.platformio/lib/LiquidCrystal_ID136",
                 "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src",
                 "/home/bull/.platformio/packages/framework-arduinoavr/cores/arduino",
@@ -37,10 +37,9 @@
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": "${workspaceRoot}/.vscode/.browse.c_cpp.db",
                 "path": [
-                    "/home/bull/git/Hysteresis_Temperature_Controller/include",
-                    "/home/bull/git/Hysteresis_Temperature_Controller/src",
+                    "/home/bull/git/Hysteresis_Temperature_Controller/SourceCode/include",
+                    "/home/bull/git/Hysteresis_Temperature_Controller/SourceCode/src",
                     "/home/bull/.platformio/lib/LiquidCrystal_ID136",
                     "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src",
                     "/home/bull/.platformio/packages/framework-arduinoavr/cores/arduino",
@@ -70,7 +69,7 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=40000",
+                "PLATFORMIO=40003",
                 "ARDUINO_AVR_UNO",
                 "F_CPU=16000000L",
                 "ARDUINO_ARCH_AVR",
