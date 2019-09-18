@@ -11,18 +11,8 @@
 LiquidCrystal_I2C lcd(0x3F,2,1,0,4,5,6,7,3, POSITIVE); //ENDEREÇO DO I2C E DEMAIS INFORMAÇÕES
 int current_page = 0;
  
-void init_lcd_display();
-void set_LCD_main_screen();
-void set_LCD_edit_controller();
-void set_low_easter_egg();
-void set_high_easter_egg();
-void set_percentage_easter_egg();
-void set_setpoint();
-void lcd_scroll_left();
-void lcd_scroll_right();
-
-
-byte graus[] = {
+// Graus
+char graus[] = {
     B00000,
     B01110,
     B01010,
@@ -33,7 +23,8 @@ byte graus[] = {
     B00000
 };
 
-byte down_arrow[] = {
+// Down Arrow
+char down_arrow[] = {
     B00000,
     B00100,
     B00100,
@@ -44,7 +35,8 @@ byte down_arrow[] = {
     B00100
 };
 
-byte up_arrow[] = {
+// Up Arrow
+char up_arrow[] = {
     B00100,
     B01110,
     B11111,
@@ -55,7 +47,8 @@ byte up_arrow[] = {
     B00000
 };
 
-byte left_arrow[] = {
+// Left arrow
+char left_arrow[] = {
     B00000,
     B00010,
     B00110,
@@ -65,6 +58,16 @@ byte left_arrow[] = {
     B00110,
     B00010
 };
+
+void init_lcd_display();
+void set_LCD_main_screen();
+void set_LCD_edit_controller();
+void set_low_hysteresis();
+void set_high_hysteresis();
+void set_percentage_hysteresis();
+void set_setpoint();
+void lcd_scroll_left();
+void lcd_scroll_right();
 
 void update_current_screen(){
     switch (current_page) {
@@ -77,7 +80,7 @@ void update_current_screen(){
             set_LCD_edit_controller();
             break;
         case SET_PERCENTAGE_PAGE_ID:
-            set_percentage_easter_egg();
+            set_percentage_hysteresis();
             break;
         case SET_SETPOINT_PAGE_ID:
             set_setpoint();
@@ -145,21 +148,21 @@ void set_LCD_main_screen(){
     lcd.print("0");
 
     // Converte o valor para uma string
-    char string_low_easter_egg_value[10];
-  	dtostrf(low_easter_egg,1,1,string_low_easter_egg_value);
-    char string_high_easter_egg_value[10];
-  	dtostrf(high_easter_egg,1,1,string_high_easter_egg_value);
+    char string_low_hysteresis_value[10];
+  	dtostrf(low_hysteresis,1,1,string_low_hysteresis_value);
+    char string_high_hysteresis_value[10];
+  	dtostrf(high_hysteresis,1,1,string_high_hysteresis_value);
     char string_setpoint_value[10];
   	dtostrf(setpoint,1,1,string_setpoint_value);
     
     // Seta o low
     lcd.setCursor(3, 0);
     lcd.write((uint8_t)0);
-    lcd.print(string_low_easter_egg_value);
+    lcd.print(string_low_hysteresis_value);
     // Seta o high
     lcd.setCursor(3, 1);
     lcd.write((uint8_t)1);
-    lcd.print(string_high_easter_egg_value);
+    lcd.print(string_high_hysteresis_value);
     // Seta o setpoint
     lcd.setCursor(10, 0);
     lcd.print("S:");
@@ -205,7 +208,7 @@ void set_LCD_edit_controller(){
     Serial.println("-------------------------------------");
 }
 
-void set_percentage_easter_egg(){
+void set_percentage_hysteresis(){
     Serial.println("-------------------------------------");
     Serial.println("Abrindo tela de edição de porcentagem de easter egg!");
 
@@ -223,12 +226,12 @@ void set_percentage_easter_egg(){
     lcd.print("% HYSTERESIS");
 
     // Seta o status
-    Serial.println(percentage_easter_egg);
+    Serial.println(percentage_hysteresis);
     lcd.setCursor(6, 1);
 
     // Converte o valor para uma string
     char string_percentage_value[10];
-  	dtostrf(percentage_easter_egg,1,0,string_percentage_value);
+  	dtostrf(percentage_hysteresis,1,0,string_percentage_value);
     // Mostra na tela o valor
     lcd.print(string_percentage_value);
     lcd.print(" %");

@@ -12,7 +12,7 @@
 #define INTERVAL_SHORT_CLICK 70
 
 /* CONTROLLER */
-#define PERCENTAGE_EASTER_EGG 10
+#define PERCENTAGE_hysteresis 10
 #define INITIAL_OR_NO_EEPROM_SETPOINT 20
 #define MINIMUM_HYSTERESIS_TEMPERATURE 1
 #define INITIAL_OR_NO_EEPROM_CONTROLLER_GENERAL_STATE false
@@ -28,10 +28,10 @@
 /* External Variables */
 extern bool programming_mode;
 extern bool editing;
-extern float low_easter_egg;
-extern float high_easter_egg;
+extern float low_hysteresis;
+extern float high_hysteresis;
 extern float setpoint;
-extern float percentage_easter_egg;
+extern float percentage_hysteresis;
 extern float current_temp;
 extern int display_temperature;
 extern bool controller_status;
@@ -51,7 +51,7 @@ extern void update_screen_temperature();
 extern void update_screen_controller_status();
 extern void set_LCD_main_screen();
 extern void set_LCD_edit_controller();
-extern void set_percentage_easter_egg();
+extern void set_percentage_hysteresis();
 extern void set_setpoint();
 extern void lcd_scroll_left();
 extern void lcd_scroll_right();
