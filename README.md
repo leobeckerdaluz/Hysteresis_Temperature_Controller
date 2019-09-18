@@ -8,7 +8,9 @@
       * Valor de histerese para desligar o driver.
       * Desabilitar o controlador independentemente da temperatura
 
-![Teste](diagrama_blocos_sistema.png)
+<div align="center">
+   <img src="diagrama_blocos_sistema.png" alt="diagrama" width="50%" height="20%"/></center>
+</div>
 
 * **Funcionamento:**
 
