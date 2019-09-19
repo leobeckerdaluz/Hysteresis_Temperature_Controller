@@ -53,7 +53,7 @@ void update_value(bool update_to_up_or_down){
     update_current_screen();
 }
 
-void update_controller() {
+void update_hysteresis_controller() {
     get_LM35_temperature();
 
     if ((current_temp >= high_hysteresis) && controller_status){

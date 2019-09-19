@@ -28,14 +28,14 @@ void setup()
 	init_controller();
 }
 
-
 void loop()
 {	
 	heart_beating();
 
+	read_p_button();
 	read_left_button();
-	read_P_button();
 	read_right_button();
+	read_s_button();
 
-	update_controller();
+	update_hysteresis_controller();
 }

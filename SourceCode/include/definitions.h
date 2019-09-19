@@ -25,9 +25,17 @@
 #define UPDATE_VALUE_TO_UP 1
 #define UPDATE_VALUE_TO_DOWN 0
 
+/* Screens */
+#define NUMBER_OF_SCREENS 4
+#define MAIN_PAGE_ID 0
+#define SET_CONTROLLER_PAGE_ID 1
+#define SET_PERCENTAGE_PAGE_ID 2
+#define SET_SETPOINT_PAGE_ID 3
+
 /* External Variables */
 extern bool programming_mode;
 extern bool editing;
+
 extern float low_hysteresis;
 extern float high_hysteresis;
 extern float setpoint;
@@ -38,44 +46,47 @@ extern bool controller_status;
 extern bool controller_general_status;
 extern int current_page;
 
-// Buttons handler
-extern void init_buttons();
-extern void read_left_button();
-extern void read_P_button();
-extern void read_right_button();
+// LCD Special Chars
+extern char special_LCD_char_down_arrow [];
+extern char special_LCD_char_up_arrow [];
+extern char special_LCD_char_left_arrow [];
+extern char special_LCD_char_graus [];
+
+// Read buttons
+void init_buttons();
+void read_p_button();
+void read_left_button();
+void read_right_button();
+void read_s_button();
+
+// Buttons handlers
+void p_button_short_click_event();
+void p_button_long_click_event();
+void left_button_short_click_event();
+void left_button_long_click_event();
+void right_button_short_click_event();
+void right_button_long_click_event();
+void s_button_short_click_event();
+void s_button_long_click_event();
 
 // LCD Handler
-extern void update_current_screen();
-extern void init_lcd_display();
-extern void update_screen_temperature();
-extern void update_screen_controller_status();
-extern void set_LCD_main_screen();
-extern void set_LCD_edit_controller();
-extern void set_percentage_hysteresis();
-extern void set_setpoint();
-extern void lcd_scroll_left();
-extern void lcd_scroll_right();
-
-// Buttons events
-extern void left_button_short_click_event();
-extern void left_button_long_click_event();
-extern void p_button_short_click_event();
-extern void p_button_long_click_event();
-extern void right_button_short_click_event();
-extern void right_button_long_click_event();
+void update_current_screen();
+void init_lcd_display();
+void update_screen_temperature();
+void update_screen_controller_status();
+void set_LCD_main_screen();
+void set_LCD_edit_controller();
+void set_percentage_hysteresis();
+void set_setpoint();
+void lcd_scroll_left();
+void lcd_scroll_right();
 
 // Controller
 extern void init_controller();
-extern void update_controller();
+void update_hysteresis_controller();
 extern void update_value(bool update_to_up_or_down);
 
 
 // LM35 handler
 extern void get_LM35_temperature();
 
-/* Screens */
-#define NUMBER_OF_SCREENS 4
-#define MAIN_PAGE_ID 0
-#define SET_CONTROLLER_PAGE_ID 1
-#define SET_PERCENTAGE_PAGE_ID 2
-#define SET_SETPOINT_PAGE_ID 3
