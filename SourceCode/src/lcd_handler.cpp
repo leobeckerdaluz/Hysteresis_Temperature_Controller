@@ -11,6 +11,65 @@
 LiquidCrystal_I2C lcd(0x3F,2,1,0,4,5,6,7,3, POSITIVE); //ENDEREÇO DO I2C E DEMAIS INFORMAÇÕES
 
 int current_page = 0;
+bool initializing = true;
+
+void welcome_display(){
+    lcd.setCursor(0, 0);
+	lcd.write(1);
+	lcd.write(2);
+	lcd.setCursor(3, 0);
+	lcd.print("Universidade");
+	lcd.setCursor(0, 1);
+	lcd.print(" de Passo Fundo ");
+	delay(2500);
+
+	lcd.clear();
+
+	lcd.setCursor(0, 0);
+	lcd.print(" Controlador de ");
+	lcd.setCursor(0, 1);
+	lcd.print("  Temperatura   ");
+	delay(2500);
+}
+
+void choose_controller_type(){
+	lcd.clear();
+
+	lcd.setCursor(0, 0);
+	lcd.print("<<< Proporcional");
+	lcd.setCursor(0, 1);
+	lcd.print("   Histerese >>>");
+	delay(2500);
+
+	do{
+		read_left_button();
+		read_right_button();
+	} while(initializing);
+
+	initializing = false;
+}
+
+void welcome_controller(){
+	lcd.clear();
+	lcd.setCursor(2, 0);
+	lcd.print("  Controlador   ");
+	lcd.setCursor(2, 1);
+	lcd.print("  selecionado:  ");
+	delay(2000);
+
+	String controller_name = controller_type ? "   HISTERESE    " : "  PROPORCIONAL  ";
+	for (uint8_t i=0; i<3; i++){
+		lcd.clear();
+		lcd.setCursor(0, 0);
+		lcd.print(controller_name);
+		delay(200);
+
+		lcd.clear();
+		delay(200);
+	}
+
+	initializing = false;
+}
 
 void init_lcd_display(){
     //Define o número de colunas e linhas do LCD
@@ -22,6 +81,8 @@ void init_lcd_display(){
 	lcd.createChar(1, special_LCD_char_down_arrow);
 	lcd.createChar(2, special_LCD_char_graus);
 	lcd.createChar(3, special_LCD_char_left_arrow);
+	lcd.createChar(3, special_LCD_char_UPF1);
+	lcd.createChar(3, special_LCD_char_UPF2);
 }
 
 void update_screen_temperature(){
@@ -365,47 +426,47 @@ void set_LCD_manual_fan_percentage(){
     // lcd.print(string_setpoint_value);
 }
 
-// void set_percentage_hysteresis(){
-//     Serial.println("-------------------------------------");
-//     Serial.println("Abrindo tela de edição de porcentagem de easter egg!");
+void set_percentage_hysteresis(){
+    Serial.println("-------------------------------------");
+    Serial.println("Abrindo tela de edição de porcentagem de easter egg!");
 
-//     //Limpa a tela
-//     lcd.clear();
+    //Limpa a tela
+    lcd.clear();
 
-//     // Seta a seta da direita e a da esquerda
-//     lcd.setCursor(0, 0);
-//     lcd.print("<");
-//     lcd.setCursor(15, 0);
-//     lcd.print(">");
+    // Seta a seta da direita e a da esquerda
+    lcd.setCursor(0, 0);
+    lcd.print("<");
+    lcd.setCursor(15, 0);
+    lcd.print(">");
 
-//     // Seta o high
-//     lcd.setCursor(2, 0);
-//     lcd.print("% HYSTERESIS");
+    // Seta o high
+    lcd.setCursor(2, 0);
+    lcd.print("% HYSTERESIS");
 
-//     // Seta o status
-//     Serial.println(percentage_hysteresis);
-//     lcd.setCursor(6, 1);
+    // Seta o status
+    Serial.println(percentage_hysteresis);
+    lcd.setCursor(6, 1);
 
-//     // Converte o valor para uma string
-//     char string_percentage_value[10];
-//   	dtostrf(percentage_hysteresis,1,0,string_percentage_value);
-//     // Mostra na tela o valor
-//     lcd.print(string_percentage_value);
-//     lcd.print(" %");
+    // Converte o valor para uma string
+    char string_percentage_value[10];
+  	dtostrf(percentage_hysteresis,1,0,string_percentage_value);
+    // Mostra na tela o valor
+    lcd.print(string_percentage_value);
+    lcd.print(" %");
         
-//     if(editing){
-//         lcd.setCursor(0, 0);
-//         lcd.print(" ");
-//         lcd.setCursor(15, 0);
-//         lcd.print(" ");
-//         lcd.setCursor(0, 1);
-//         lcd.print("<<<");
-//         lcd.setCursor(13, 1);
-//         lcd.print(">>>");
-//     }
+    if(editing){
+        lcd.setCursor(0, 0);
+        lcd.print(" ");
+        lcd.setCursor(15, 0);
+        lcd.print(" ");
+        lcd.setCursor(0, 1);
+        lcd.print("<<<");
+        lcd.setCursor(13, 1);
+        lcd.print(">>>");
+    }
 
-//     Serial.println("-------------------------------------");
-// }
+    Serial.println("-------------------------------------");
+}
 
 
 void update_current_screen(){

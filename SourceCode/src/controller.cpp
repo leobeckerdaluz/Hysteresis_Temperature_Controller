@@ -7,6 +7,7 @@ float percentage_hysteresis;
 float setpoint;
 bool controller_status = false;
 bool controller_general_status = true;
+bool controller_type;
 
 void update_hysteresis(){
     float real_hysteresis_difference = setpoint*(percentage_hysteresis/100.0);

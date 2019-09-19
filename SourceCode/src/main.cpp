@@ -21,6 +21,9 @@ void setup()
 	init_buttons(); 
 	init_controller();
 
+	welcome_display();
+	choose_controller_type();
+
 	// Inicializa a tela principal
 	update_current_screen();
 

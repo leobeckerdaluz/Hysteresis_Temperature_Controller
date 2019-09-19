@@ -35,6 +35,8 @@
 /* External Variables */
 extern bool programming_mode;
 extern bool editing;
+extern bool initializing;
+extern bool controller_type;
 
 extern float low_hysteresis;
 extern float high_hysteresis;
@@ -51,6 +53,9 @@ extern char special_LCD_char_down_arrow [];
 extern char special_LCD_char_up_arrow [];
 extern char special_LCD_char_left_arrow [];
 extern char special_LCD_char_graus [];
+extern char special_LCD_char_UPF1 [];
+extern char special_LCD_char_UPF2 [];
+
 
 // Read buttons
 void init_buttons();
@@ -70,6 +75,9 @@ void s_button_short_click_event();
 void s_button_long_click_event();
 
 // LCD Handler
+void welcome_display();
+void welcome_controller();
+void choose_controller_type();
 void update_current_screen();
 void init_lcd_display();
 void update_screen_temperature();
