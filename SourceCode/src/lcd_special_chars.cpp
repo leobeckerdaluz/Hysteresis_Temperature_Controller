@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "definitions.h"
 
-char special_LCD_char_graus[] = {
+byte special_LCD_char_graus[8] = {
     B00000,
     B01110,
     B01010,
@@ -12,7 +12,7 @@ char special_LCD_char_graus[] = {
     B00000
 };
 
-char special_LCD_char_down_arrow[] = {
+byte special_LCD_char_down_arrow[8] = {
     B00000,
     B00100,
     B00100,
@@ -23,7 +23,7 @@ char special_LCD_char_down_arrow[] = {
     B00100
 };
 
-char special_LCD_char_up_arrow[] = {
+byte special_LCD_char_up_arrow[8] = {
     B00100,
     B01110,
     B11111,
@@ -34,7 +34,7 @@ char special_LCD_char_up_arrow[] = {
     B00000
 };
 
-char special_LCD_char_left_arrow[] = {
+byte special_LCD_char_left_arrow[8] = {
     B00000,
     B00010,
     B00110,
@@ -45,7 +45,7 @@ char special_LCD_char_left_arrow[] = {
     B00010
 };
 
-char special_LCD_char_UPF1[8] = {
+byte special_LCD_char_UPF1[8] = {
   0b00000,
   0b00001,
   0b00011,
@@ -56,7 +56,7 @@ char special_LCD_char_UPF1[8] = {
   0b00001
 };
 
-char special_LCD_char_UPF2[8] = {
+byte special_LCD_char_UPF2[8] = {
   0b00000,
   0b10000,
   0b11000,

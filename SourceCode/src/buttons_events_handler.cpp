@@ -40,20 +40,25 @@ void p_button_long_click_event(){
 // ----------------------------------------------------
 /* LEFT */
 void left_button_short_click_event(){
-    if (programming_mode){
-        if(editing){
-            // Atualiza o valor
-            update_value(UPDATE_VALUE_TO_DOWN);
-        }
-        else{
-            // Navega para a tela da esquerda
-            Serial.println("Navegando para a tela da esquerda!");
-            if (current_page==1)    
-                current_page = NUMBER_OF_SCREENS-1;
-            else    
-                current_page--;
-            lcd_scroll_left();
-            update_current_screen();
+    if(initializing){
+        welcome_controller();
+    }
+    else{
+        if (programming_mode){
+            if(editing){
+                // Atualiza o valor
+                update_value(UPDATE_VALUE_TO_DOWN);
+            }
+            else{
+                // Navega para a tela da esquerda
+                Serial.println("Navegando para a tela da esquerda!");
+                if (current_page==1)    
+                    current_page = NUMBER_OF_SCREENS-1;
+                else    
+                    current_page--;
+                lcd_scroll_left();
+                update_current_screen();
+            }
         }
     }
 }

@@ -23,6 +23,8 @@ void setup()
 
 	welcome_display();
 	choose_controller_type();
+	delay(2000);
+	welcome_controller();
 
 	// Inicializa a tela principal
 	update_current_screen();

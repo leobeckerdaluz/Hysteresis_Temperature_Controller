@@ -49,12 +49,12 @@ extern bool controller_general_status;
 extern int current_page;
 
 // LCD Special Chars
-extern char special_LCD_char_down_arrow [];
-extern char special_LCD_char_up_arrow [];
-extern char special_LCD_char_left_arrow [];
-extern char special_LCD_char_graus [];
-extern char special_LCD_char_UPF1 [];
-extern char special_LCD_char_UPF2 [];
+extern byte special_LCD_char_down_arrow [8];
+extern byte special_LCD_char_up_arrow [8];
+extern byte special_LCD_char_left_arrow [8];
+extern byte special_LCD_char_graus [8];
+extern byte special_LCD_char_UPF1 [8];
+extern byte special_LCD_char_UPF2 [8];
 
 
 // Read buttons

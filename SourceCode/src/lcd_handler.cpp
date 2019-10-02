@@ -15,8 +15,8 @@ bool initializing = true;
 
 void welcome_display(){
     lcd.setCursor(0, 0);
-	lcd.write(1);
-	lcd.write(2);
+	lcd.write(4);
+	lcd.write(5);
 	lcd.setCursor(3, 0);
 	lcd.print("Universidade");
 	lcd.setCursor(0, 1);
@@ -41,19 +41,19 @@ void choose_controller_type(){
 	lcd.print("   Histerese >>>");
 	delay(2500);
 
-	do{
-		read_left_button();
-		read_right_button();
-	} while(initializing);
-
-	initializing = false;
+	// do{
+	// 	read_left_button();
+	// 	read_right_button();
+	// } while(initializing);
 }
 
 void welcome_controller(){
+	initializing = false;
+
 	lcd.clear();
-	lcd.setCursor(2, 0);
+	lcd.setCursor(0, 0);
 	lcd.print("  Controlador   ");
-	lcd.setCursor(2, 1);
+	lcd.setCursor(0, 1);
 	lcd.print("  selecionado:  ");
 	delay(2000);
 
@@ -67,8 +67,6 @@ void welcome_controller(){
 		lcd.clear();
 		delay(200);
 	}
-
-	initializing = false;
 }
 
 void init_lcd_display(){
@@ -81,8 +79,8 @@ void init_lcd_display(){
 	lcd.createChar(1, special_LCD_char_down_arrow);
 	lcd.createChar(2, special_LCD_char_graus);
 	lcd.createChar(3, special_LCD_char_left_arrow);
-	lcd.createChar(3, special_LCD_char_UPF1);
-	lcd.createChar(3, special_LCD_char_UPF2);
+	lcd.createChar(4, special_LCD_char_UPF1);
+	lcd.createChar(5, special_LCD_char_UPF2);
 }
 
 void update_screen_temperature(){
