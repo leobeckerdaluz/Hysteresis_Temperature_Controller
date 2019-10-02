@@ -21,10 +21,10 @@ void setup()
 	init_buttons(); 
 	init_controller();
 
-	welcome_display();
-	choose_controller_type();
-	delay(2000);
-	welcome_controller();
+	#if WELCOME_INTRODUCTION
+		welcome_display();
+		choose_controller_type();
+	#endif
 
 	// Inicializa a tela principal
 	update_current_screen();
@@ -42,5 +42,8 @@ void loop()
 	read_right_button();
 	read_s_button();
 
-	update_hysteresis_controller();
+	if (controller_type == HYSTERESIS_CONTROLLER)
+		update_hysteresis_controller();
+	else if (controller_type == PROPORTIONAL_CONTROLLER)
+		update_proportional_controller();
 }

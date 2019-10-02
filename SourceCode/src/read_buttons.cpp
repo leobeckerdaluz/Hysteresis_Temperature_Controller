@@ -2,9 +2,10 @@
 #include "definitions.h"
 
 void init_buttons(){
-	pinMode(BUTTON_LEFT_PIN, INPUT);
 	pinMode(BUTTON_P_PIN, INPUT);
+	pinMode(BUTTON_LEFT_PIN, INPUT);
 	pinMode(BUTTON_RIGHT_PIN, INPUT);
+	pinMode(BUTTON_S_PIN, INPUT);
 }
 
 void read_p_button(){
@@ -13,7 +14,11 @@ void read_p_button(){
 	static bool p_button_pressed = false; // Sem essa variável, millis ficaria atualizando abaixo toda vez
 
 	// Lê o valor digital do botão
-	bool button_digital_value = digitalRead(BUTTON_LEFT_PIN);
+	bool button_digital_value = digitalRead(BUTTON_P_PIN);
+	// Inverte o valor da leitura conforme for PULLUP ou DOWN
+	#if INVERT_BUTTON_READ
+		button_digital_value = !button_digital_value;
+	#endif
 
 	// Se o botão foi pressionado, armazena o millis
 	if (button_digital_value && !p_button_pressed) {		
@@ -55,6 +60,10 @@ void read_left_button(){
 
 	// Lê o valor digital do botão
 	bool button_digital_value = digitalRead(BUTTON_LEFT_PIN);
+	// Inverte o valor da leitura conforme for PULLUP ou DOWN
+	#if INVERT_BUTTON_READ
+		button_digital_value = !button_digital_value;
+	#endif
 
 	// Se o botão foi pressionado, armazena o millis
 	if (button_digital_value && !left_button_pressed) {		
@@ -95,7 +104,11 @@ void read_right_button(){
 	static bool right_button_pressed = false; // Sem essa variável, millis ficaria atualizando abaixo toda vez
 
 	// Lê o valor digital do botão
-	bool button_digital_value = digitalRead(BUTTON_LEFT_PIN);
+	bool button_digital_value = digitalRead(BUTTON_RIGHT_PIN);
+	// Inverte o valor da leitura conforme for PULLUP ou DOWN
+	#if INVERT_BUTTON_READ
+		button_digital_value = !button_digital_value;
+	#endif
 
 	// Se o botão foi pressionado, armazena o millis
 	if (button_digital_value && !right_button_pressed) {		
@@ -136,7 +149,11 @@ void read_s_button(){
 	static bool s_button_pressed = false; // Sem essa variável, millis ficaria atualizando abaixo toda vez
 
 	// Lê o valor digital do botão
-	bool button_digital_value = digitalRead(BUTTON_LEFT_PIN);
+	bool button_digital_value = digitalRead(BUTTON_S_PIN);
+	// Inverte o valor da leitura conforme for PULLUP ou DOWN
+	#if INVERT_BUTTON_READ
+		button_digital_value = !button_digital_value;
+	#endif
 
 	// Se o botão foi pressionado, armazena o millis
 	if (button_digital_value && !s_button_pressed) {		
@@ -153,12 +170,12 @@ void read_s_button(){
 			// Se o tempo for longo, foi LONG PRESS
 			if ((s_lastBtnReleaseMillis-s_lastBtnPressMillis >= INTERVAL_LONG_CLICK)) {
 				Serial.println("Long Press - S");
-				p_button_long_click_event();
+				s_button_long_click_event();
 			}
 			// Se o tempo for curto, foi SHORT PRESS
 			else if ((s_lastBtnReleaseMillis-s_lastBtnPressMillis >= INTERVAL_SHORT_CLICK)) {
 				Serial.println("Short Press - S");
-				p_button_short_click_event();
+				s_button_short_click_event();
 			}
 		}
 		// // Se o botão está pressionado há mais que o tempo longo, LONG PRESS
