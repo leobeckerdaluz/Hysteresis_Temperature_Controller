@@ -3,6 +3,7 @@
 
 bool editing = false;
 bool programming_mode = false;
+uint8_t screens_iterator = 0;
 
 // ----------------------------------------------------
 /* P */
@@ -11,19 +12,25 @@ void p_button_short_click_event(){
         programming_mode = false;
         editing = false;
         Serial.println("Programming Mode desativado!");
+        // Atualiza o iterador para a primeira posição do array
+        screens_iterator = 0;
         if (controller_type == HYSTERESIS_CONTROLLER)
-            current_page = programming_hyst_screens[0];
+            current_page = programming_hyst_screens[screens_iterator];
         else if (controller_type == PROPORTIONAL_CONTROLLER)
-            current_page = programming_prop_screens[0];
+            current_page = programming_prop_screens[screens_iterator];
+        // Atualiza as telas
         update_current_screen();
     }
     else{
         programming_mode = true;
         Serial.println("Programming Mode Ativado!");
+        // Atualiza o iterador para a segunda posição (edição)
+        screens_iterator = 1;
         if (controller_type == HYSTERESIS_CONTROLLER)
-            current_page = programming_hyst_screens[1];
+            current_page = programming_hyst_screens[screens_iterator];
         else if (controller_type == PROPORTIONAL_CONTROLLER)
-            current_page = programming_prop_screens[1];
+            current_page = programming_prop_screens[screens_iterator];
+        // Atualiza as telas
         update_current_screen();
     }
 }
@@ -50,21 +57,24 @@ void left_button_short_click_event(){
                 Serial.println("Navegando para a tela da esquerda!");
                 
                 // Decrementa a página atual                
-                current_page--;
+                screens_iterator--;            
 
                 // Conforme o controlador, o a tela final muda, então verifica
                 if (controller_type == HYSTERESIS_CONTROLLER){
-                    if (current_page == MAIN_PAGE_HYST_ID){
+                    if (current_page == programming_hyst_screens[1]){
                         // Obtém a última posição do array
-                        current_page = programming_hyst_screens[NUMBER_OF_HYST_SCREENS-1];
+                        screens_iterator = NUMBER_OF_HYST_SCREENS-1;
                     }
+                    current_page = programming_hyst_screens[screens_iterator];
                 }
                 else if (controller_type == PROPORTIONAL_CONTROLLER){
-                    if (current_page == MAIN_PAGE_PROP_ID){
+                    if (current_page == programming_prop_screens[1]){
                         // Obtém a última posição do array
-                        current_page = programming_prop_screens[NUMBER_OF_PROP_SCREENS-1];
+                        screens_iterator = NUMBER_OF_PROP_SCREENS-1;
                     }
+                    current_page = programming_prop_screens[screens_iterator];
                 }
+
                 lcd_scroll_left();
                 update_current_screen();
             }
@@ -93,21 +103,23 @@ void right_button_short_click_event(){
                 // Navega para a tela da direita
                 Serial.println("Navegando para a tela da direita!");
 
-                // Incrementa a página atual                
-                current_page++;
+                // Incrementa a página atual   
+                screens_iterator++; 
 
                 // Conforme o controlador, o a tela final muda, então verifica
                 if (controller_type == HYSTERESIS_CONTROLLER){
-                    if (current_page == NUMBER_OF_HYST_SCREENS){
+                    if (current_page == programming_hyst_screens[NUMBER_OF_HYST_SCREENS-2]){
                         // Obtém a nova tela que está na 2ª posição do array (1ª tela é a main)
-                        current_page = programming_hyst_screens[1];
+                        screens_iterator = 1;
                     }
+                    current_page = programming_hyst_screens[screens_iterator];
                 }
                 else if (controller_type == PROPORTIONAL_CONTROLLER){
-                    if (current_page == NUMBER_OF_PROP_SCREENS){
+                    if (current_page == programming_prop_screens[NUMBER_OF_HYST_SCREENS-2]){
                         // Obtém a nova tela que está na 2ª posição do array (1ª tela é a main)
-                        current_page = programming_prop_screens[1];
+                        screens_iterator = 1;
                     }
+                    current_page = programming_prop_screens[screens_iterator];
                 }
                 lcd_scroll_right();
                 update_current_screen();
