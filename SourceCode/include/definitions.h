@@ -2,8 +2,8 @@
 #define WELCOME_INTRODUCTION 1 // 1 or 0
 
 /* PINS */
-#define BUTTON_P_PIN 8
-#define BUTTON_LEFT_PIN 9
+#define BUTTON_P_PIN 9
+#define BUTTON_LEFT_PIN 8
 #define BUTTON_RIGHT_PIN 7
 #define BUTTON_S_PIN 6
 #define LM35_PIN A0
@@ -41,6 +41,9 @@
 #define MAX_KP_GAIN 10.0
 #define INTERVAL_MAX_KP_GAIN_INC_DEC 0.5
 
+#define MIN_CONTROLLER_VALUE 0.0
+#define MAX_CONTROLLER_VALUE 10.0
+
 /* Screens */
 #define MAIN_PAGE_HYST_ID 0
 #define SET_HYST_CONTROLLER_PAGE_ID 1
@@ -66,6 +69,7 @@ extern bool programming_mode;
 extern bool editing;
 extern bool initializing;
 extern bool controller_type;
+
 enum controllers {
     HYSTERESIS_CONTROLLER = 0,
     PROPORTIONAL_CONTROLLER,
@@ -77,7 +81,7 @@ extern float setpoint;
 extern float percentage_hysteresis;
 extern float current_temp;
 extern int display_temperature;
-extern bool controller_status;
+extern float controller_status;
 extern bool controller_general_status;
 extern float proportional_gain;
 extern int current_page;
@@ -119,7 +123,7 @@ void choose_controller_type();
 void update_current_screen();
 void init_lcd_display();
 void update_screen_temperature();
-void update_screen_controller_status();
+void update_screen_hyst_controller_status();
 void set_LCD_main_screen();
 void set_LCD_edit_controller();
 void set_percentage_hysteresis();

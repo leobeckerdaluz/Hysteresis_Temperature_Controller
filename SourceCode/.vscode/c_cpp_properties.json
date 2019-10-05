@@ -8,7 +8,7 @@
             "includePath": [
                 "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/include",
                 "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/src",
-                "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/.pio/libdeps/uno/LiquidCrystal_ID136",
+                "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/.pio/libdeps/uno_LINUX/LiquidCrystal_ID136",
                 "C:/Users/Leonardo/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src",
                 "C:/Users/Leonardo/.platformio/packages/framework-arduinoavr/cores/arduino",
                 "C:/Users/Leonardo/.platformio/packages/framework-arduinoavr/variants/standard",
@@ -25,7 +25,7 @@
                 "path": [
                     "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/include",
                     "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/src",
-                    "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/.pio/libdeps/uno/LiquidCrystal_ID136",
+                    "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/.pio/libdeps/uno_LINUX/LiquidCrystal_ID136",
                     "C:/Users/Leonardo/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src",
                     "C:/Users/Leonardo/.platformio/packages/framework-arduinoavr/cores/arduino",
                     "C:/Users/Leonardo/.platformio/packages/framework-arduinoavr/variants/standard",

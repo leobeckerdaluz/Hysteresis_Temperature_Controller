@@ -22,16 +22,17 @@ uint8_t programming_prop_screens[] = {
 	SET_PROP_MANUAL_HEAT_STATE,
 	SET_PROP_MANUAL_FAN_VALUE,
 	SET_PROP_MANUAL_FAN_STATE,
-    SET_PROP_MANUAL_FAN
+    SET_PROP_MANUAL_FAN,
 };
 uint8_t programming_hyst_screens[] = {
     MAIN_PAGE_HYST_ID,
     SET_HYST_CONTROLLER_PAGE_ID,
+    SET_HYST_SETPOINT_PAGE_ID,
     SET_HYST_PERCENTAGE_PAGE_ID,
-    SET_HYST_SETPOINT_PAGE_ID
 };
 
 void welcome_display(){
+	lcd.clear();
     lcd.setCursor(0, 0);
 	lcd.write(4);
 	lcd.write(5);
@@ -77,10 +78,12 @@ void welcome_controller(){
 	lcd.print(controller_name);
 	delay(1000);
 
-	for (uint8_t i=0; i<3; i++){
+	for (uint8_t i=0; i<3; i++){		
 		lcd.clear();
-		lcd.setCursor(0, 1);
-		lcd.print(controller_name);
+        lcd.setCursor(0, 0);
+        lcd.print("  Selecionado:  ");
+        lcd.setCursor(0, 1);
+        lcd.print(controller_name);
 		delay(200);
 
 		lcd.clear();
@@ -116,16 +119,16 @@ void update_screen_temperature(){
     lcd.print(string_temperature_value);
 }
 
-void update_screen_controller_status(){
+void update_screen_hyst_controller_status(){
     Serial.println("Atualizando status do controle no display!");
 
-    if (controller_status){
+    if (controller_status == MAX_CONTROLLER_VALUE){
         lcd.setCursor(1, 0);
         lcd.write((uint8_t)3);
         lcd.setCursor(1, 1);
         lcd.print(" ");
     }
-    else{
+    else if (controller_status == MIN_CONTROLLER_VALUE){
         lcd.setCursor(1, 0);
         lcd.print(" ");
         lcd.setCursor(1, 1);
@@ -287,7 +290,6 @@ void set_LCD_edit_controller(){
 
     Serial.println("-------------------------------------");
 }
-
 
 void set_LCD_manual_heat_state(){
     Serial.println("-------------------------------------");
@@ -453,7 +455,7 @@ void set_LCD_manual_fan_value(){
 
 void set_percentage_hysteresis(){
     Serial.println("-------------------------------------");
-    Serial.println("Abrindo tela de edição de porcentagem de easter egg!");
+    Serial.println("Abrindo tela de edição de porcentagem de Hysteresis!");
 
     //Limpa a tela
     lcd.clear();
@@ -493,17 +495,15 @@ void set_percentage_hysteresis(){
     Serial.println("-------------------------------------");
 }
 
-
 void update_current_screen(){
     switch (current_page) {
         case MAIN_PAGE_HYST_ID:
             set_LCD_main_screen();
-            update_screen_controller_status();
+            update_screen_hyst_controller_status();
             update_screen_temperature();
             break;
 		case MAIN_PAGE_PROP_ID:
             set_LCD_main_screen();
-            update_screen_controller_status();
             update_screen_temperature();
             break;
         case SET_HYST_CONTROLLER_PAGE_ID:
@@ -541,6 +541,71 @@ void update_current_screen(){
     }
 }
 
+void update_value(bool update_to_up_or_down){
+    switch (current_page) {
+        case MAIN_PAGE_HYST_ID:
+            // set_LCD_main_screen();
+            // update_screen_temperature();
+        break;
+		case MAIN_PAGE_PROP_ID:
+            // set_LCD_main_screen();
+            // update_screen_temperature();
+        break;
+        case SET_HYST_CONTROLLER_PAGE_ID:
+            controller_general_status = !controller_general_status;
+        break;
+        case SET_HYST_PERCENTAGE_PAGE_ID:
+            if(update_to_up_or_down)
+                percentage_hysteresis = (percentage_hysteresis==100) ? 100 : percentage_hysteresis += INTERVAL_PERCENTAGE_INC_DEC;
+            else
+                percentage_hysteresis = (percentage_hysteresis==0) ? 0 : percentage_hysteresis -= INTERVAL_PERCENTAGE_INC_DEC;
+            update_hysteresis_controller();
+        break;
+        case SET_HYST_SETPOINT_PAGE_ID:
+            if(update_to_up_or_down)
+                setpoint = (setpoint==MAX_SETPOINT) ? MAX_SETPOINT : setpoint += INTERVAL_SETPOINT_INC_DEC;
+            else
+                setpoint = (setpoint==MIN_SETPOINT) ? MIN_SETPOINT : setpoint -= INTERVAL_SETPOINT_INC_DEC;
+            update_hysteresis_controller();
+        break;
+		case SET_PROP_SETPOINT_PAGE_ID:
+            if(update_to_up_or_down)
+                setpoint = (setpoint==MAX_SETPOINT) ? MAX_SETPOINT : setpoint += INTERVAL_SETPOINT_INC_DEC;
+            else
+                setpoint = (setpoint==MIN_SETPOINT) ? MIN_SETPOINT : setpoint -= INTERVAL_SETPOINT_INC_DEC;
+        break;
+		case SET_PROP_KP_GAIN:
+            if(update_to_up_or_down)
+                proportional_gain = (proportional_gain==MAX_KP_GAIN) ? MAX_KP_GAIN : proportional_gain += INTERVAL_MAX_KP_GAIN_INC_DEC;
+            else
+                proportional_gain = (proportional_gain==MAX_KP_GAIN) ? MAX_KP_GAIN : proportional_gain -= INTERVAL_MAX_KP_GAIN_INC_DEC;
+        break;
+		case SET_PROP_MANUAL_HEAT_STATE:
+            controller_manual_heat_status = !controller_manual_heat_status;
+        break;
+        case SET_PROP_MANUAL_HEAT_VALUE:
+            if(update_to_up_or_down)
+                controller_manual_heat_value = (controller_manual_heat_value==MAX_HEAT_VALUE) ? MAX_HEAT_VALUE : controller_manual_heat_value += INTERVAL_HEAT_VALUE_INC_DEC;
+            else
+                controller_manual_heat_value = (controller_manual_heat_value==MAX_HEAT_VALUE) ? MAX_HEAT_VALUE : controller_manual_heat_value -= INTERVAL_HEAT_VALUE_INC_DEC;
+        break;
+		case SET_PROP_MANUAL_FAN_STATE:
+            controller_manual_fan_status = !controller_manual_fan_status;
+        break;
+		case SET_PROP_MANUAL_FAN_VALUE:
+            if(update_to_up_or_down)
+                controller_manual_fan_value = (controller_manual_fan_value==MAX_FAN_VALUE) ? MAX_FAN_VALUE : controller_manual_fan_value += INTERVAL_FAN_VALUE_INC_DEC;
+            else
+                controller_manual_fan_value = (controller_manual_fan_value==MAX_FAN_VALUE) ? MAX_FAN_VALUE : controller_manual_fan_value -= INTERVAL_FAN_VALUE_INC_DEC;
+        break;
+		case SET_PROP_CONTROLLER_PAGE_ID:
+            controller_general_status = !controller_general_status;
+        break;
+        default:
+        break;
+    }
+    update_current_screen();
+}
 
 void lcd_scroll_left(){
     for(int posi_LCD=0; posi_LCD<15; posi_LCD++){
