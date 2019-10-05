@@ -18,6 +18,6 @@ void get_LM35_temperature(){
 
     if (abs_temp>0.2 && !programming_mode){
         last_temp = current_temp;
-        update_screen_temperature();
+        update_current_screen();
 	}
 }

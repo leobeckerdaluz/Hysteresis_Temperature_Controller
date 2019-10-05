@@ -3,7 +3,8 @@
 
 bool editing = false;
 bool programming_mode = false;
-uint8_t screens_iterator = 0;
+// uint8_t screens_iterator = 0;
+int screens_iterator = 0;
 
 // ----------------------------------------------------
 /* P */
@@ -61,12 +62,12 @@ void left_button_short_click_event(){
                 switch (controller_type){
                     case HYSTERESIS_CONTROLLER:
                         if (screens_iterator < 1)
-                            screens_iterator = NUMBER_OF_HYST_SCREENS - 2;
+                            screens_iterator = NUMBER_OF_HYST_SCREENS - 1;
                         current_page = programming_hyst_screens[screens_iterator];
                     break;
                     case PROPORTIONAL_CONTROLLER:
                         if (screens_iterator < 1)
-                            screens_iterator = NUMBER_OF_PROP_SCREENS - 2;
+                            screens_iterator = NUMBER_OF_PROP_SCREENS - 1;
                         current_page = programming_prop_screens[screens_iterator];
                     break;
                 }
@@ -103,12 +104,12 @@ void right_button_short_click_event(){
                 screens_iterator++; 
                 switch (controller_type){
                     case HYSTERESIS_CONTROLLER:
-                        if (screens_iterator >= NUMBER_OF_HYST_SCREENS-1)
+                        if (screens_iterator >= NUMBER_OF_HYST_SCREENS)
                             screens_iterator = 1;
                         current_page = programming_hyst_screens[screens_iterator];
                     break;
                     case PROPORTIONAL_CONTROLLER:
-                        if (screens_iterator >= NUMBER_OF_PROP_SCREENS-1)
+                        if (screens_iterator >= NUMBER_OF_PROP_SCREENS)
                             screens_iterator = 1;
                         current_page = programming_prop_screens[screens_iterator];
                     break;

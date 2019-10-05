@@ -1,5 +1,7 @@
+#include <stdbool.h>
+
 /* GENERAL */
-#define WELCOME_INTRODUCTION 1 // 1 or 0
+#define WELCOME_INTRODUCTION true // 1 or 0
 
 /* PINS */
 #define BUTTON_P_PIN 9
@@ -9,6 +11,9 @@
 #define LM35_PIN A0
 #define PIN_HEART_BEATING 13
 #define CONTROLLER_STATUS_PIN 4
+#define DRIVER_ENABLE_PIN 10
+#define FAN__PWM_OUTPUT_PIN 11
+#define HEAT_PWM_OUTPUT_PIN 12
 
 /* DELAYS & INTERVALS */
 #define DELAY_HEART_BEATING 500
@@ -19,48 +24,48 @@
 #define INVERT_BUTTON_READ 0   // 1 or 0
 
 /* CONTROLLER */
-#define PERCENTAGE_hysteresis 10
+#define PERCENTAGE_HYSTERESIS 10
 #define INITIAL_OR_NO_EEPROM_SETPOINT 20
 #define MINIMUM_HYSTERESIS_TEMPERATURE 1
-#define INITIAL_OR_NO_EEPROM_CONTROLLER_GENERAL_STATE false
+#define INITIAL_OR_NO_EEPROM_DRIVER_STATE false
 
-#define INTERVAL_SETPOINT_INC_DEC 0.5
 #define INTERVAL_PERCENTAGE_INC_DEC 1
-#define MAX_SETPOINT 50
-#define MIN_SETPOINT 10
 
 #define UPDATE_VALUE_TO_UP 1
 #define UPDATE_VALUE_TO_DOWN 0
 
+#define INTERVAL_SETPOINT_INC_DEC 0.5
+#define MAX_SETPOINT 50
+#define MIN_SETPOINT 10
+
 #define INTERVAL_HEAT_VALUE_INC_DEC 0.5
 #define MAX_HEAT_VALUE 100.0
+#define MIN_HEAT_VALUE 1.0
 
 #define INTERVAL_FAN_VALUE_INC_DEC 0.5
 #define MAX_FAN_VALUE 100.0
+#define MIN_FAN_VALUE 1.0
 
 #define MAX_KP_GAIN 10.0
-#define INTERVAL_MAX_KP_GAIN_INC_DEC 0.5
-
-#define MIN_CONTROLLER_VALUE 0.0
-#define MAX_CONTROLLER_VALUE 10.0
+#define MIN_KP_GAIN 1.0
+#define INTERVAL_KP_GAIN_INC_DEC 0.5
 
 /* Screens */
 #define MAIN_PAGE_HYST_ID 0
+#define SET_HYST_SETPOINT_PAGE_ID 3
 #define SET_HYST_CONTROLLER_PAGE_ID 1
 #define SET_HYST_PERCENTAGE_PAGE_ID 2
-#define SET_HYST_SETPOINT_PAGE_ID 3
 #define NUMBER_OF_HYST_SCREENS 4
 extern uint8_t programming_hyst_screens[NUMBER_OF_HYST_SCREENS];    
 #define MAIN_PAGE_PROP_ID 10
+#define SET_PROP_CONTROLLER_PAGE_ID 18
 #define SET_PROP_SETPOINT_PAGE_ID 11
 #define SET_PROP_KP_GAIN 12
 #define SET_PROP_MANUAL_HEAT_STATE 13
 #define SET_PROP_MANUAL_HEAT_VALUE 14
 #define SET_PROP_MANUAL_FAN_STATE 15
 #define SET_PROP_MANUAL_FAN_VALUE 16
-#define SET_PROP_MANUAL_FAN 17
-#define SET_PROP_CONTROLLER_PAGE_ID 18
-#define NUMBER_OF_PROP_SCREENS 9
+#define NUMBER_OF_PROP_SCREENS 8
 extern uint8_t programming_prop_screens[NUMBER_OF_PROP_SCREENS];
 
 
@@ -68,7 +73,7 @@ extern uint8_t programming_prop_screens[NUMBER_OF_PROP_SCREENS];
 extern bool programming_mode;
 extern bool editing;
 extern bool initializing;
-extern bool controller_type;
+extern uint8_t controller_type;
 
 enum controllers {
     HYSTERESIS_CONTROLLER = 0,
@@ -82,7 +87,7 @@ extern float percentage_hysteresis;
 extern float current_temp;
 extern int display_temperature;
 extern float controller_status;
-extern bool controller_general_status;
+extern bool driver_status;
 extern float proportional_gain;
 extern int current_page;
 extern bool controller_manual_heat_status;
@@ -124,7 +129,8 @@ void update_current_screen();
 void init_lcd_display();
 void update_screen_temperature();
 void update_screen_hyst_controller_status();
-void set_LCD_main_screen();
+void set_LCD_hyst_main_screen();
+void set_LCD_prop_main_screen();
 void set_LCD_edit_controller();
 void set_percentage_hysteresis();
 void set_setpoint();
