@@ -9,7 +9,7 @@
       * Desabilitar o controlador independentemente da temperatura
 
 <div align="center">
-   <img src="diagrama_blocos_sistema.png" alt="diagrama" width="50%" height="20%"/></center>
+   <img src="README_MEDIAS/diagrama_blocos_sistema.png" alt="diagrama" width="50%" height="20%"/></center>
 </div>
 
 * **Funcionamento:**
