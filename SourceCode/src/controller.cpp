@@ -74,7 +74,7 @@ void update_hysteresis_controller() {
 
     if ((current_temp >= high_hysteresis) && controller_status == MAX_HEAT_VALUE){
         controller_status = MIN_HEAT_VALUE;
-        digitalWrite(CONTROLLER_STATUS_PIN, LOW);
+        digitalWrite(HYSTERESIS_CONTROLLER_STATUS_PIN, LOW);
 
         if (!programming_mode)
             update_screen_hyst_controller_status();
@@ -91,7 +91,7 @@ void update_hysteresis_controller() {
     }
     else if ((current_temp <= low_hysteresis) && controller_status == MIN_HEAT_VALUE){
         controller_status = MAX_HEAT_VALUE;
-        digitalWrite(CONTROLLER_STATUS_PIN, HIGH);
+        digitalWrite(HYSTERESIS_CONTROLLER_STATUS_PIN, HIGH);
 
         if (!programming_mode)
             update_screen_hyst_controller_status();
