@@ -12,9 +12,7 @@ O sistema de controle possui 2 modos de operação. O primeiro deles é o Modo C
 O software foi desenvolvido utilizando a IDE PLatformIO com o Visual Studio Code.
    * **Bibliotecas utilizadas:** LiquidCrystal
    * **Definições:** O arquivo */include/definitions.h* contém todas as definições de parâmetros de execução, pinos de GPIO e parâmetros iniciais do controlador.
-   * **Arquivo .hex:** Ao compilar a aplicação, os arquivos .hex e .elf ficam localizados na pasta escondida **.pio/build/uno/**. 
-
-   **OBS: Ao fazer upload para a placa, os arquivos não se encontram mais nessa pasta**
+   * **Arquivo .hex:** Ao compilar a aplicação, os arquivos .hex e .elf ficam localizados na pasta escondida **.pio/build/uno/[uno_LINUX ou uno_WINDOWS]**. 
 
 ## Controlador ON/OFF de Temperatura (Histerese)
 * **Descrição geral do Sistema:**
@@ -52,6 +50,7 @@ proporcional (Kp) e aplicado na saída. Para isso, as telas disponíveis no modo
 
 ## Trabalhos Futuros:
    * Armazenar os parâmetros do sistema na EEPROM para que não seja preciso uma nova configuração à cada inicialização.
+   * Apresentar na MAINPAGE do controlador proporcional as saídas individuais de aquecedor e ventilador.
 
 ## Montagem Física do Sistema:
 <div align="center">
