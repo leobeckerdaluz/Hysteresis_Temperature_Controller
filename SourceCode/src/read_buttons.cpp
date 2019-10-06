@@ -34,12 +34,16 @@ void read_p_button(){
 
 			// Se o tempo for longo, foi LONG PRESS
 			if ((p_lastBtnReleaseMillis-p_lastBtnPressMillis >= INTERVAL_LONG_CLICK)) {
+				#if DEBUG_CONSOLE
 				Serial.println("Long Press - P");
+				#endif
 				p_button_long_click_event();
 			}
 			// Se o tempo for curto, foi SHORT PRESS
 			else if ((p_lastBtnReleaseMillis-p_lastBtnPressMillis >= INTERVAL_SHORT_CLICK)) {
+				#if DEBUG_CONSOLE
 				Serial.println("Short Press - P");
+				#endif
 				p_button_short_click_event();
 			}
 		}
@@ -79,12 +83,16 @@ void read_left_button(){
 
 			// Se o tempo for longo, foi LONG PRESS
 			if ((left_lastBtnReleaseMillis-left_lastBtnPressMillis >= INTERVAL_LONG_CLICK)) {
+				#if DEBUG_CONSOLE
 				Serial.println("Long Press - LEFT");
+				#endif
 				left_button_long_click_event();
 			}
 			// Se o tempo for curto, foi SHORT PRESS
 			else if ((left_lastBtnReleaseMillis-left_lastBtnPressMillis >= INTERVAL_SHORT_CLICK)) {
+				#if DEBUG_CONSOLE
 				Serial.println("Short Press - LEFT");
+				#endif
 				left_button_short_click_event();
 			}
 		}
@@ -124,12 +132,16 @@ void read_right_button(){
 
 			// Se o tempo for longo, foi LONG PRESS
 			if ((right_lastBtnReleaseMillis-right_lastBtnPressMillis >= INTERVAL_LONG_CLICK)) {
+				#if DEBUG_CONSOLE
 				Serial.println("Long Press - RIGHT");
+				#endif
 				right_button_long_click_event();
 			}
 			// Se o tempo for curto, foi SHORT PRESS
 			else if ((right_lastBtnReleaseMillis-right_lastBtnPressMillis >= INTERVAL_SHORT_CLICK)) {
+				#if DEBUG_CONSOLE
 				Serial.println("Short Press - RIGHT");
+				#endif
 				right_button_short_click_event();
 			}
 		}
@@ -169,12 +181,16 @@ void read_s_button(){
 
 			// Se o tempo for longo, foi LONG PRESS
 			if ((s_lastBtnReleaseMillis-s_lastBtnPressMillis >= INTERVAL_LONG_CLICK)) {
+				#if DEBUG_CONSOLE
 				Serial.println("Long Press - S");
+				#endif
 				s_button_long_click_event();
 			}
 			// Se o tempo for curto, foi SHORT PRESS
 			else if ((s_lastBtnReleaseMillis-s_lastBtnPressMillis >= INTERVAL_SHORT_CLICK)) {
+				#if DEBUG_CONSOLE
 				Serial.println("Short Press - S");
+				#endif
 				s_button_short_click_event();
 			}
 		}

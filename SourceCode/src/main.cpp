@@ -19,15 +19,21 @@ void setup()
 
 	init_lcd_display();
 	init_buttons(); 
-	init_controller();
 
 	#if WELCOME_INTRODUCTION
 		welcome_display();
 		choose_controller_type();
+	#else
+		controller_type = INITIAL_CONTROLLER_TYPE;
+		// Atualiza o iterador para a primeira posição do array
+		if (controller_type == HYSTERESIS_CONTROLLER)
+			current_page = programming_hyst_screens[0];
+		else if (controller_type == PROPORTIONAL_CONTROLLER)
+			current_page = programming_prop_screens[0];
 	#endif
 
 	// Inicializa a tela principal
-	update_current_screen();
+	update_current_screen(false);
 
 	// Inicializa os dados do controlador
 	init_controller();
@@ -46,4 +52,7 @@ void loop()
 		update_hysteresis_controller();
 	else if (controller_type == PROPORTIONAL_CONTROLLER)
 		update_proportional_controller();
+
+	// Atualiza a tela de maneira não forçada
+	update_current_screen(false);
 }
