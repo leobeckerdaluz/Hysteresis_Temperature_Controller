@@ -1,13 +1,6 @@
 #include <Arduino.h>
 #include "definitions.h"
 
-void init_buttons(){
-	pinMode(BUTTON_P_PIN, INPUT);
-	pinMode(BUTTON_LEFT_PIN, INPUT);
-	pinMode(BUTTON_RIGHT_PIN, INPUT);
-	pinMode(BUTTON_S_PIN, INPUT);
-}
-
 void read_p_button(){
 	static unsigned long long int p_lastBtnPressMillis = 0;
 	static unsigned long long int p_lastBtnReleaseMillis = 0;

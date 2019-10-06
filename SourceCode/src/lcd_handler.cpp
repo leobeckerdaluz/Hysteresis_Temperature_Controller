@@ -348,7 +348,7 @@ void set_LCD_manual_heat_state(){
     lcd.setCursor(0, 0);
     lcd.print(lcd_string_ManualMode);  
 
-    lcd.setCursor(0, 1);
+    lcd.setCursor(1, 1);
     lcd.print(lcd_string_Heat);  
     // Mostra na tela o valor
     if (controller_manual_heat_status)  
@@ -399,7 +399,7 @@ void set_LCD_manual_fan_state(){
     lcd.setCursor(0, 0);
     lcd.print(lcd_string_ManualMode);  
 
-    lcd.setCursor(0, 1);
+    lcd.setCursor(1, 1);
     lcd.print(lcd_string_Fan);
     // Mostra na tela o valor
     if (controller_manual_fan_status)  
@@ -548,6 +548,9 @@ void update_value(bool update_to_up_or_down){
             driver_status = !driver_status;
             // Seta a saída do driver
             digitalWrite(DRIVER_ENABLE_PIN, driver_status);
+            // Atualiza os estados manuais
+            controller_manual_heat_status = false;
+            controller_manual_fan_status = false;
         break;
         case SET_HYST_PERCENTAGE_PAGE_ID:
             if(update_to_up_or_down)
@@ -557,44 +560,47 @@ void update_value(bool update_to_up_or_down){
         break;
         case SET_HYST_SETPOINT_PAGE_ID:
             if(update_to_up_or_down)
-                setpoint = (setpoint==MAX_SETPOINT) ? MAX_SETPOINT : setpoint += INTERVAL_SETPOINT_INC_DEC;
+                setpoint = (setpoint>=MAX_SETPOINT) ? MAX_SETPOINT : setpoint += INTERVAL_SETPOINT_INC_DEC;
             else
-                setpoint = (setpoint==MIN_SETPOINT) ? MIN_SETPOINT : setpoint -= INTERVAL_SETPOINT_INC_DEC;
+                setpoint = (setpoint<=MIN_SETPOINT) ? MIN_SETPOINT : setpoint -= INTERVAL_SETPOINT_INC_DEC;
         break;
 		case SET_PROP_SETPOINT_PAGE_ID:
             if(update_to_up_or_down)
-                setpoint = (setpoint==MAX_SETPOINT) ? MAX_SETPOINT : setpoint += INTERVAL_SETPOINT_INC_DEC;
+                setpoint = (setpoint>=MAX_SETPOINT) ? MAX_SETPOINT : setpoint += INTERVAL_SETPOINT_INC_DEC;
             else
-                setpoint = (setpoint==MIN_SETPOINT) ? MIN_SETPOINT : setpoint -= INTERVAL_SETPOINT_INC_DEC;
+                setpoint = (setpoint<=MIN_SETPOINT) ? MIN_SETPOINT : setpoint -= INTERVAL_SETPOINT_INC_DEC;
         break;
 		case SET_PROP_KP_GAIN:
             if(update_to_up_or_down)
-                proportional_gain = (proportional_gain==MAX_KP_GAIN) ? MAX_KP_GAIN : proportional_gain += INTERVAL_KP_GAIN_INC_DEC;
+                proportional_gain = (proportional_gain>=MAX_KP_GAIN) ? MAX_KP_GAIN : proportional_gain += INTERVAL_KP_GAIN_INC_DEC;
             else
-                proportional_gain = (proportional_gain==MIN_KP_GAIN) ? MIN_KP_GAIN : proportional_gain -= INTERVAL_KP_GAIN_INC_DEC;
+                proportional_gain = (proportional_gain<=MIN_KP_GAIN) ? MIN_KP_GAIN : proportional_gain -= INTERVAL_KP_GAIN_INC_DEC;
         break;
 		case SET_PROP_MANUAL_HEAT_STATE:
             controller_manual_heat_status = !controller_manual_heat_status;
         break;
         case SET_PROP_MANUAL_HEAT_VALUE:
             if(update_to_up_or_down)
-                controller_manual_heat_value = (controller_manual_heat_value==MAX_HEAT_VALUE) ? MAX_HEAT_VALUE : controller_manual_heat_value += INTERVAL_HEAT_VALUE_INC_DEC;
+                controller_manual_heat_value = (controller_manual_heat_value>=MAX_HEAT_VALUE) ? MAX_HEAT_VALUE : controller_manual_heat_value += INTERVAL_HEAT_VALUE_INC_DEC;
             else
-                controller_manual_heat_value = (controller_manual_heat_value==MIN_HEAT_VALUE) ? MIN_HEAT_VALUE : controller_manual_heat_value -= INTERVAL_HEAT_VALUE_INC_DEC;
+                controller_manual_heat_value = (controller_manual_heat_value<=MIN_HEAT_VALUE) ? MIN_HEAT_VALUE : controller_manual_heat_value -= INTERVAL_HEAT_VALUE_INC_DEC;
         break;
 		case SET_PROP_MANUAL_FAN_STATE:
             controller_manual_fan_status = !controller_manual_fan_status;
         break;
 		case SET_PROP_MANUAL_FAN_VALUE:
             if(update_to_up_or_down)
-                controller_manual_fan_value = (controller_manual_fan_value==MAX_FAN_VALUE) ? MAX_FAN_VALUE : controller_manual_fan_value += INTERVAL_FAN_VALUE_INC_DEC;
+                controller_manual_fan_value = (controller_manual_fan_value>=MAX_FAN_VALUE) ? MAX_FAN_VALUE : controller_manual_fan_value += INTERVAL_FAN_VALUE_INC_DEC;
             else
-                controller_manual_fan_value = (controller_manual_fan_value==MIN_FAN_VALUE) ? MIN_FAN_VALUE : controller_manual_fan_value -= INTERVAL_FAN_VALUE_INC_DEC;
+                controller_manual_fan_value = (controller_manual_fan_value<=MIN_FAN_VALUE) ? MIN_FAN_VALUE : controller_manual_fan_value -= INTERVAL_FAN_VALUE_INC_DEC;
         break;
 		case SET_PROP_CONTROLLER_PAGE_ID:
             driver_status = !driver_status;
             // Seta a saída do driver
             digitalWrite(DRIVER_ENABLE_PIN, driver_status);
+            // Atualiza os estados manuais
+            controller_manual_heat_status = false;
+            controller_manual_fan_status = false;
         break;
         default:
         break;
@@ -606,7 +612,7 @@ void update_value(bool update_to_up_or_down){
 
 void lcd_scroll(uint8_t direction){
     static unsigned long long int scroll_millis = millis();
-    
+
     for(int posi_LCD=0; posi_LCD<15; posi_LCD++){
         while(millis() - SCROLL_DELAY_MS < scroll_millis){};
         scroll_millis = millis();

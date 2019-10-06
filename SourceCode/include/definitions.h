@@ -16,7 +16,7 @@
 #define BUTTON_S_PIN 6
 #define LM35_PIN A0
 #define PIN_HEART_BEATING 13
-#define CONTROLLER_STATUS_PIN 4
+#define HYSTERESIS_CONTROLLER_STATUS_PIN 4
 #define DRIVER_ENABLE_PIN 12
 #define FAN__PWM_OUTPUT_PIN 10
 #define HEAT_PWM_OUTPUT_PIN 11
@@ -40,12 +40,12 @@ enum controllers {
 #define INTERVAL_SETPOINT_INC_DEC 0.5
 #define MAX_SETPOINT 50
 #define MIN_SETPOINT 10
-#define INTERVAL_HEAT_VALUE_INC_DEC 0.5
+#define INTERVAL_HEAT_VALUE_INC_DEC 2.0
 #define MAX_HEAT_VALUE 100.0
-#define MIN_HEAT_VALUE 1.0
-#define INTERVAL_FAN_VALUE_INC_DEC 0.5
+#define MIN_HEAT_VALUE 0.0
+#define INTERVAL_FAN_VALUE_INC_DEC 2.0
 #define MAX_FAN_VALUE 100.0
-#define MIN_FAN_VALUE 1.0
+#define MIN_FAN_VALUE 0.0
 #define INTERVAL_KP_GAIN_INC_DEC 0.5
 #define MAX_KP_GAIN 10.0
 #define MIN_KP_GAIN 1.0
@@ -81,7 +81,6 @@ extern void update_value(bool update_to_up_or_down);
 #define INTERVAL_SHORT_CLICK 70 // ms
 
 // Read buttons
-void init_buttons();
 void read_p_button();
 void read_left_button();
 void read_right_button();
@@ -153,8 +152,8 @@ void lcd_scroll(uint8_t direction);
 const char lcd_string_ManualMode[] = "  Manual Mode   ";
 const char lcd_string_ON[] = "ON";
 const char lcd_string_OFF[] = "OFF";
-const char lcd_string_Heat[] = "   Heat: ";
-const char lcd_string_Fan[] = "    Fan: ";
+const char lcd_string_Heat[] = "   Heat:";
+const char lcd_string_Fan[] = "    Fan:";
 const char lcd_string_Hysteresis[] = "  % HYSTERESIS  ";
 const char lcd_string_Percent[] = " %";
 const char lcd_string_DriverStatus[] = "  Driver Status ";

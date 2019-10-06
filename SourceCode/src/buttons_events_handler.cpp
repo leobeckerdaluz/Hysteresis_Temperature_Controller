@@ -3,8 +3,7 @@
 
 bool editing = false;
 bool programming_mode = false;
-// uint8_t screens_iterator = 0;
-int screens_iterator = 0;
+uint8_t screens_iterator = 1; // Inicia na posição da primeira tela de edição
 
 // ----------------------------------------------------
 /* P */
@@ -16,11 +15,10 @@ void p_button_short_click_event(){
         Serial.println("Programming Mode desativado!");
         #endif
         // Atualiza o iterador para a primeira posição do array
-        screens_iterator = 0;
         if (controller_type == HYSTERESIS_CONTROLLER)
-            current_page = programming_hyst_screens[screens_iterator];
+            current_page = programming_hyst_screens[0];
         else if (controller_type == PROPORTIONAL_CONTROLLER)
-            current_page = programming_prop_screens[screens_iterator];
+            current_page = programming_prop_screens[0];
         // Atualiza as telas
         update_current_screen(true);
     }
@@ -30,7 +28,6 @@ void p_button_short_click_event(){
         Serial.println("Programming Mode Ativado!");
         #endif
         // Atualiza o iterador para a segunda posição (edição)
-        screens_iterator = 1;
         if (controller_type == HYSTERESIS_CONTROLLER)
             current_page = programming_hyst_screens[screens_iterator];
         else if (controller_type == PROPORTIONAL_CONTROLLER)
