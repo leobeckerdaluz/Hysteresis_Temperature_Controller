@@ -119,10 +119,18 @@ void update_proportional_controller() {
     #endif
 
     if (driver_status){
-        if (proportional_output > 0)
+        if (proportional_output > 0){
             set_HEAT_PWM_OUT(abs(proportional_output));
-        else
+            controller_manual_heat_status = true;
+            set_FAN_PWM_OUT(0);
+            controller_manual_fan_status = false;
+        }
+        else {
+            set_HEAT_PWM_OUT(0);
+            controller_manual_heat_status = false;
             set_FAN_PWM_OUT(abs(proportional_output));
+            controller_manual_fan_status = true;
+        }
     }
     else{
         if (!controller_manual_heat_status && !controller_manual_fan_status){
