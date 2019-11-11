@@ -19,6 +19,8 @@ void setup()
 	pinMode(BUTTON_S_PIN, INPUT);
 	// LM 35
 	pinMode(LM35_PIN, INPUT);
+	// ANALOG SETPOINT
+	pinMode(ANALOG_SETPOINT_PIN, INPUT);
 	// OUTPUTS
 	pinMode(PIN_HEART_BEATING, OUTPUT);
 	pinMode(HYSTERESIS_CONTROLLER_STATUS_PIN, OUTPUT);
@@ -50,6 +52,9 @@ void setup()
 
 	// Inicializa os dados do controlador
 	init_controller();
+
+	// Inicializa a interrupção do encoder
+	// attachInterrupt(digitalPinToInterrupt(ENCODER_PIN), encoder_ISR, RISING);
 }
 
 void loop()
