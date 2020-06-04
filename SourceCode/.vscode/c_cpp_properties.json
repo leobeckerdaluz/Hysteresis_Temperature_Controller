@@ -29,6 +29,7 @@
                 "/home/bull/.platformio/lib/LiquidCrystal_ID887/src",
                 "/home/bull/.platformio/lib/LiquidCrystal_PCF8574_ID1165/src",
                 "/home/bull/.platformio/lib/MD_MAX72XX_ID5631/src",
+                "/home/bull/.platformio/lib/Stepper_ID874/src",
                 "/home/bull/.platformio/lib/blufi-basic_ID5535/src",
                 "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src",
                 "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/HID/src",
@@ -63,6 +64,7 @@
                     "/home/bull/.platformio/lib/LiquidCrystal_ID887/src",
                     "/home/bull/.platformio/lib/LiquidCrystal_PCF8574_ID1165/src",
                     "/home/bull/.platformio/lib/MD_MAX72XX_ID5631/src",
+                    "/home/bull/.platformio/lib/Stepper_ID874/src",
                     "/home/bull/.platformio/lib/blufi-basic_ID5535/src",
                     "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src",
                     "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/HID/src",
@@ -73,7 +75,7 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=40003",
+                "PLATFORMIO=40100",
                 "ARDUINO_AVR_UNO",
                 "F_CPU=16000000L",
                 "ARDUINO_ARCH_AVR",
