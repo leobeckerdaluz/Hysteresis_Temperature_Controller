@@ -10,4 +10,7 @@ void get_LM35_temperature(){
     // 1023 - 5V
     // 0 - 0V
     current_temp = (LM35_digital_read*5.0/1023)/0.01;
+
+
+    current_sensor_value = current_temp;
 }

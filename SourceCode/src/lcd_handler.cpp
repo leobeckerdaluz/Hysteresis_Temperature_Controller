@@ -60,10 +60,10 @@ void choose_controller_type(){
 	lcd.print(lcd_string_HYSTERESIS_CHOOSE);
 	delay(100);
 
-	do{
-		read_left_button();
-		read_right_button();
-	} while(initializing);
+	// do{
+	// 	read_left_button();
+	// 	read_right_button();
+	// } while(initializing);
 }
 
 void welcome_controller(){
@@ -111,8 +111,8 @@ void update_screen_temperature(){
     // Converte o valor para uma string
     char temp[10];
     char string_temperature_value[10];
-  	dtostrf(current_temp,1,1,temp);
-    if(current_temp<10)     sprintf(string_temperature_value, "0%s", temp);
+  	dtostrf(current_sensor_value,1,1,temp);
+    if(current_sensor_value<10)     sprintf(string_temperature_value, "0%s", temp);
     else    sprintf(string_temperature_value, "%s", temp);
    
     // Seta a temperatura atual
@@ -243,7 +243,7 @@ void set_LCD_prop_main_screen(){
     // char string_low_hysteresis_value[10];
   	// dtostrf(low_hysteresis,1,1,string_low_hysteresis_value);
     char string_present_value[10];
-  	dtostrf(current_temp,1,1,string_present_value);
+  	dtostrf(current_sensor_value,1,1,string_present_value);
     char string_setpoint_value[10];
   	dtostrf(setpoint,1,1,string_setpoint_value);
     

@@ -4,8 +4,9 @@
             "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
         },
         {
-            "name": "Win32",
+            "name": "Linux",
             "includePath": [
+<<<<<<< HEAD
                 "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/include",
                 "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/src",
                 "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/.pio/libdeps/uno_LINUX/LiquidCrystal_ID136",
@@ -19,11 +20,44 @@
                 "C:/Users/Leonardo/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SPI/src",
                 "C:/Users/Leonardo/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SoftwareSerial/src",
                 "C:/Users/Leonardo/.platformio/packages/tool-unity",
+=======
+                "/home/bull/git/Hysteresis_Temperature_Controller/SourceCode/include",
+                "/home/bull/git/Hysteresis_Temperature_Controller/SourceCode/src",
+                "/home/bull/git/Hysteresis_Temperature_Controller/SourceCode/.pio/libdeps/uno_LINUX/LiquidCrystal_ID136",
+                "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src",
+                "/home/bull/.platformio/packages/framework-arduinoavr/cores/arduino",
+                "/home/bull/.platformio/packages/framework-arduinoavr/variants/standard",
+                "/home/bull/.platformio/lib/ArduinoJson_ID64/src",
+                "/home/bull/.platformio/lib/Blynk_ID415/src",
+                "/home/bull/.platformio/lib/DabbleESP32_ID6336/src",
+                "/home/bull/.platformio/lib/Dabble_ID6034/src",
+                "/home/bull/.platformio/lib/ESP32 BLE Arduino_ID1841/src",
+                "/home/bull/.platformio/lib/ESP8266 and ESP32 Oled Driver for SSD1306 display_ID2978/src",
+                "/home/bull/.platformio/lib/ESP8266_SSD1306_ID562/src",
+                "/home/bull/.platformio/lib/Firebase ESP32 Client_ID6217/src",
+                "/home/bull/.platformio/lib/LEDMatrixDriver_ID1696/src",
+                "/home/bull/.platformio/lib/LedControl_ID914/src",
+                "/home/bull/.platformio/lib/LiquidCrystal_I2C_ID1574",
+                "/home/bull/.platformio/lib/LiquidCrystal_I2C_ID576",
+                "/home/bull/.platformio/lib/LiquidCrystal_I2C_ID6158/src",
+                "/home/bull/.platformio/lib/LiquidCrystal_ID136",
+                "/home/bull/.platformio/lib/LiquidCrystal_ID887/src",
+                "/home/bull/.platformio/lib/LiquidCrystal_PCF8574_ID1165/src",
+                "/home/bull/.platformio/lib/MD_MAX72XX_ID5631/src",
+                "/home/bull/.platformio/lib/Stepper_ID874/src",
+                "/home/bull/.platformio/lib/blufi-basic_ID5535/src",
+                "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src",
+                "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/HID/src",
+                "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SPI/src",
+                "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SoftwareSerial/src",
+                "/home/bull/.platformio/packages/tool-unity",
+>>>>>>> 92ff3fe80de75fd283871f4a831d4f3831004cf9
                 ""
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
+<<<<<<< HEAD
                     "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/include",
                     "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/src",
                     "c:/git/Temperature_Controller_Hysteresis_Proportional/SourceCode/.pio/libdeps/uno_LINUX/LiquidCrystal_ID136",
@@ -37,6 +71,38 @@
                     "C:/Users/Leonardo/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SPI/src",
                     "C:/Users/Leonardo/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SoftwareSerial/src",
                     "C:/Users/Leonardo/.platformio/packages/tool-unity",
+=======
+                    "/home/bull/git/Hysteresis_Temperature_Controller/SourceCode/include",
+                    "/home/bull/git/Hysteresis_Temperature_Controller/SourceCode/src",
+                    "/home/bull/git/Hysteresis_Temperature_Controller/SourceCode/.pio/libdeps/uno_LINUX/LiquidCrystal_ID136",
+                    "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src",
+                    "/home/bull/.platformio/packages/framework-arduinoavr/cores/arduino",
+                    "/home/bull/.platformio/packages/framework-arduinoavr/variants/standard",
+                    "/home/bull/.platformio/lib/ArduinoJson_ID64/src",
+                    "/home/bull/.platformio/lib/Blynk_ID415/src",
+                    "/home/bull/.platformio/lib/DabbleESP32_ID6336/src",
+                    "/home/bull/.platformio/lib/Dabble_ID6034/src",
+                    "/home/bull/.platformio/lib/ESP32 BLE Arduino_ID1841/src",
+                    "/home/bull/.platformio/lib/ESP8266 and ESP32 Oled Driver for SSD1306 display_ID2978/src",
+                    "/home/bull/.platformio/lib/ESP8266_SSD1306_ID562/src",
+                    "/home/bull/.platformio/lib/Firebase ESP32 Client_ID6217/src",
+                    "/home/bull/.platformio/lib/LEDMatrixDriver_ID1696/src",
+                    "/home/bull/.platformio/lib/LedControl_ID914/src",
+                    "/home/bull/.platformio/lib/LiquidCrystal_I2C_ID1574",
+                    "/home/bull/.platformio/lib/LiquidCrystal_I2C_ID576",
+                    "/home/bull/.platformio/lib/LiquidCrystal_I2C_ID6158/src",
+                    "/home/bull/.platformio/lib/LiquidCrystal_ID136",
+                    "/home/bull/.platformio/lib/LiquidCrystal_ID887/src",
+                    "/home/bull/.platformio/lib/LiquidCrystal_PCF8574_ID1165/src",
+                    "/home/bull/.platformio/lib/MD_MAX72XX_ID5631/src",
+                    "/home/bull/.platformio/lib/Stepper_ID874/src",
+                    "/home/bull/.platformio/lib/blufi-basic_ID5535/src",
+                    "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src",
+                    "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/HID/src",
+                    "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SPI/src",
+                    "/home/bull/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SoftwareSerial/src",
+                    "/home/bull/.platformio/packages/tool-unity",
+>>>>>>> 92ff3fe80de75fd283871f4a831d4f3831004cf9
                     ""
                 ]
             },
@@ -52,7 +118,7 @@
             "intelliSenseMode": "clang-x64",
             "cStandard": "c11",
             "cppStandard": "c++11",
-            "compilerPath": "\"C:/Users/Leonardo/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe\" -mmcu=atmega328p"
+            "compilerPath": "\"/home/bull/.platformio/packages/toolchain-atmelavr/bin/avr-gcc\" -mmcu=atmega328p"
         }
     ],
     "version": 4

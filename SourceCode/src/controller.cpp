@@ -72,7 +72,7 @@ void init_controller() {
 void update_hysteresis_controller() {
     get_LM35_temperature();
 
-    if ((current_temp >= high_hysteresis) && controller_status == MAX_HEAT_VALUE){
+    if ((current_sensor_value >= high_hysteresis) && controller_status == MAX_HEAT_VALUE){
         controller_status = MIN_HEAT_VALUE;
         digitalWrite(HYSTERESIS_CONTROLLER_STATUS_PIN, LOW);
 
@@ -82,14 +82,14 @@ void update_hysteresis_controller() {
         #if DEBUG_CONSOLE
         Serial.println("Limite High Hysteresis atingido!");
         Serial.print("Current: ");
-        Serial.println(current_temp, 2);
+        Serial.println(current_sensor_value, 2);
         Serial.print("High Hysteresis: ");
         Serial.println(high_hysteresis, 2);
         Serial.println("Ligando o controlador!");
         Serial.println("----------------------------");
         #endif
     }
-    else if ((current_temp <= low_hysteresis) && controller_status == MIN_HEAT_VALUE){
+    else if ((current_sensor_value <= low_hysteresis) && controller_status == MIN_HEAT_VALUE){
         controller_status = MAX_HEAT_VALUE;
         digitalWrite(HYSTERESIS_CONTROLLER_STATUS_PIN, HIGH);
 
@@ -99,7 +99,7 @@ void update_hysteresis_controller() {
         #if DEBUG_CONSOLE
         Serial.println("Limite Low Hysteresis atingido!");
         Serial.print("Current: ");
-        Serial.println(current_temp, 2);
+        Serial.println(current_sensor_value, 2);
         Serial.print("Low Hysteresis: ");
         Serial.println(low_hysteresis, 2);
         Serial.println("Desligando o controlador!");
@@ -110,8 +110,15 @@ void update_hysteresis_controller() {
 
 void update_proportional_controller() {
     get_LM35_temperature();
+    
+    // *******************************************************************
+    // ANALOG SETPOINT
+    uint16_t analog_setpoint_read = analogRead(ANALOG_SETPOINT_PIN);
+    setpoint = analog_setpoint_read/10.0;
+    // *******************************************************************
+    // *******************************************************************
 
-    float proportional_output = (setpoint - current_temp) * proportional_gain;
+    float proportional_output = (setpoint - current_sensor_value) * proportional_gain;
     
     #if DEBUG_CONSOLE
     Serial.print("Proportional Output: ");
@@ -119,10 +126,18 @@ void update_proportional_controller() {
     #endif
 
     if (driver_status){
-        if (proportional_output > 0)
+        if (proportional_output > 0){
             set_HEAT_PWM_OUT(abs(proportional_output));
-        else
+            controller_manual_heat_status = true;
+            set_FAN_PWM_OUT(0);
+            controller_manual_fan_status = false;
+        }
+        else {
+            set_HEAT_PWM_OUT(0);
+            controller_manual_heat_status = false;
             set_FAN_PWM_OUT(abs(proportional_output));
+            controller_manual_fan_status = true;
+        }
     }
     else{
         if (!controller_manual_heat_status && !controller_manual_fan_status){
